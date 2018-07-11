@@ -17,7 +17,7 @@ import pl.com.viewerNBP.data.CurrenciesModelRepo;
 @SpringUI
 public class AppUi extends UI {
 	
-	@Autowired
+	
 	private CurrenciesModelRepo currenciesRepo;
 
 	private Label testLabel = new Label("test");
@@ -26,7 +26,8 @@ public class AppUi extends UI {
 	private NbpApiSender nbpSender = new NbpApiSender("http://api.nbp.pl/api/exchangerates/tables/a/");
 
 	@Autowired
-	public AppUi() {
+	public AppUi(CurrenciesModelRepo currenciesRepo) {
+		this.currenciesRepo = currenciesRepo;
 	}
 
 	@Override
