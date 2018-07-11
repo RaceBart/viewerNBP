@@ -8,11 +8,17 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+import pl.com.viewerNBP.data.CurrenciesModelRepo;
+
 @SpringUI
 public class AppUi extends UI {
+	
+	
+	private CurrenciesModelRepo currenciesRepo;
 
 	private Label testLabel = new Label("test");
 	private Button test = new Button("test");
@@ -27,8 +33,8 @@ public class AppUi extends UI {
 	protected void init(VaadinRequest request) {
 
 		test.addClickListener(c -> {
-			testLabel.setValue(nbpSender.getCurrenciesFromDates("2018-07-01", "2018-07-10"));
-
+//			testLabel.setValue(nbpSender.getCurrenciesFromDates("2018-07-01", "2018-07-10"));
+Notification.show(currenciesRepo.findAll().toString());
 		});
 
 		layout.addComponents(test, testLabel);
