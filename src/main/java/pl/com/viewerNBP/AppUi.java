@@ -1,6 +1,8 @@
 package pl.com.viewerNBP;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -34,8 +36,10 @@ public class AppUi extends UI {
 	protected void init(VaadinRequest request) {
 
 		test.addClickListener(c -> {
-//			testLabel.setValue(nbpSender.getCurrenciesFromDates("2018-07-01", "2018-07-10"));
-Notification.show(currenciesRepo.findAll().toString());
+			JSONArray response = nbpSender.getJsonCurrenciesFromDates("2018-07-11", "2018-07-11");
+			Notification.show(response.getJSONObject(0).getJSONArray("rates").getJSONObject(1).getString("code"));
+			
+//			testLabel.setValue(nbpSender.getStringCurrenciesFromDates("2018-07-01", "2018-07-10"));
 		});
 
 		layout.addComponents(test, testLabel);

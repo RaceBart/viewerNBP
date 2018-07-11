@@ -7,6 +7,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+
+
+
 public class NbpApiSender {
 	public NbpApiSender(String baseURL) {
 		super();
@@ -14,7 +20,7 @@ public class NbpApiSender {
 	}
 	private String baseURL;
 	
-	public String getCurrenciesFromDates(String startDate, String endDate) {
+	public String getStringCurrenciesFromDates(String startDate, String endDate) {
 		String response = "";
 
 		URL url;
@@ -22,6 +28,7 @@ public class NbpApiSender {
 			url = new URL(baseURL + "/" + startDate + "/" + endDate);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
+			
 			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			StringBuilder sb = new StringBuilder();
 			String line;
@@ -39,6 +46,13 @@ public class NbpApiSender {
 		}
 		
 		return response;
+	}
+	
+	public JSONArray getJsonCurrenciesFromDates(String startDate, String endDate) {
+
+		
+		return new JSONArray(getStringCurrenciesFromDates(startDate, endDate));
+		
 	}
 	
 	
