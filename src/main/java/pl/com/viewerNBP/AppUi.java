@@ -21,7 +21,7 @@ import pl.com.viewerNBP.data.CurrenciesModelRepo;
 
 @SpringUI
 public class AppUi extends UI {
-	
+	@Autowired
 	private CurrenciesModelRepo currenciesRepo;
 
 	private Label testLabel = new Label("test");
