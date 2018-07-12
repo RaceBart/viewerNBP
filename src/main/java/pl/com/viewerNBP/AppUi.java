@@ -1,6 +1,8 @@
 package pl.com.viewerNBP;
 
 
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+import pl.com.viewerNBP.data.CurrenciesModel;
 import pl.com.viewerNBP.data.CurrenciesModelRepo;
 
 @SpringUI
@@ -27,7 +30,7 @@ public class AppUi extends UI {
 	private VerticalLayout layout = new VerticalLayout();
 	private NbpApiSender nbpSender = new NbpApiSender("http://api.nbp.pl/api/exchangerates/tables/a/");
 
-	@Autowired
+//	@Autowired
 	public AppUi(CurrenciesModelRepo currenciesRepo) {
 		this.currenciesRepo = currenciesRepo;
 	}
@@ -38,7 +41,7 @@ public class AppUi extends UI {
 		test.addClickListener(c -> {
 			JSONArray response = nbpSender.getJsonCurrenciesFromDates("2018-07-11", "2018-07-11");
 			Notification.show(response.getJSONObject(0).getJSONArray("rates").getJSONObject(1).getString("code"));
-			
+//			List<CurrenciesModel> testRepo = currenciesRepo.findAll();
 //			testLabel.setValue(nbpSender.getStringCurrenciesFromDates("2018-07-01", "2018-07-10"));
 		});
 
