@@ -22,7 +22,6 @@ import pl.com.viewerNBP.data.CurrenciesModelRepo;
 @SpringUI
 public class AppUi extends UI {
 	
-	@Autowired
 	private CurrenciesModelRepo currenciesRepo;
 
 	private Label testLabel = new Label("test");
@@ -40,7 +39,7 @@ public class AppUi extends UI {
 //			JSONArray response = nbpSender.getJsonCurrenciesFromDates("2018-07-11", "2018-07-11");
 //			Notification.show(response.getJSONObject(0).getJSONArray("rates").getJSONObject(1).getString("code"));
 			List<CurrenciesModel> testRepo = currenciesRepo.findAll();
-			Notification.show(testRepo.get(0).getCurrency_name());
+			Notification.show(String.valueOf(testRepo.size()));
 //			testLabel.setValue(nbpSender.getStringCurrenciesFromDates("2018-07-01", "2018-07-10"));
 		});
 
