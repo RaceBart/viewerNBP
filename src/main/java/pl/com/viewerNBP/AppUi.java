@@ -30,7 +30,7 @@ public class AppUi extends UI {
 	private VerticalLayout layout = new VerticalLayout();
 	private NbpApiSender nbpSender = new NbpApiSender("http://api.nbp.pl/api/exchangerates/tables/a/");
 
-//	@Autowired
+	@Autowired
 	public AppUi(CurrenciesModelRepo currenciesRepo) {
 		this.currenciesRepo = currenciesRepo;
 	}
@@ -41,7 +41,7 @@ public class AppUi extends UI {
 		test.addClickListener(c -> {
 			JSONArray response = nbpSender.getJsonCurrenciesFromDates("2018-07-11", "2018-07-11");
 			Notification.show(response.getJSONObject(0).getJSONArray("rates").getJSONObject(1).getString("code"));
-//			List<CurrenciesModel> testRepo = currenciesRepo.findAll();
+			List<CurrenciesModel> testRepo = currenciesRepo.findAll();
 //			testLabel.setValue(nbpSender.getStringCurrenciesFromDates("2018-07-01", "2018-07-10"));
 		});
 
