@@ -88,7 +88,8 @@ public class AppUi extends UI {
 
 	private void setupButtonsBehaviour() {
 		addBt.addClickListener(c->{
-			currencyList.addComponent(new Label("aaaaaaaaaaaaaa"));
+//			currencyList.addComponent(new Label("aaaaaaaaaaaaaa"));
+			Notification.show(modelRepo.findAll().get(0).getCurrency_name());
 		});
 		databaseValueSettBt.addClickListener(s->{
 			SettingsWindow settingsWindow = new SettingsWindow("Database Value Settings",modelRepo);
