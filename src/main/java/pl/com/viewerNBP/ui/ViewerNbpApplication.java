@@ -1,4 +1,4 @@
-package pl.com.viewerNBP;
+package pl.com.viewerNBP.ui;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
