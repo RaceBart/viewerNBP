@@ -16,7 +16,7 @@ public class CurrenciesModel implements Serializable{
 
 	@Id
 	@Column(name="\"id_serial\"")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	@GeneratedValue(strategy=GenerationType.IDENTITY)
 //	@Column(columnDefinition = "serial")
 	private Integer id_serial;
 	@Column(name="currency_date")
