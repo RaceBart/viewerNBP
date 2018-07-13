@@ -15,9 +15,9 @@ import javax.persistence.Table;
 public class CurrenciesModel implements Serializable{
 
 	@Id
-//	@Column(name="\"id_serial\"")
+	@Column(name="\"id_serial\"")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(columnDefinition = "serial")
+//	@Column(columnDefinition = "serial")
 	private Integer id_serial;
 	@Column(name="currency_date")
 	private Date currency_date;
