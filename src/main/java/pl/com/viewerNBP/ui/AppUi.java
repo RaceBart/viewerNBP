@@ -4,6 +4,7 @@ package pl.com.viewerNBP.ui;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,11 +56,16 @@ public class AppUi extends UI {
 	};
 
 	private NbpApiSender nbpSender = new NbpApiSender();
-
+	private CurrenciesModel dbDateMin;
+	private CurrenciesModel dbDateMax;
 
 	@Override
 	protected void init(VaadinRequest request) {
 
+		List<CurrenciesModel> repoAll = modelRepo.findAll();
+		dbDateMax = Collections.max(repoAll, dataComparator);
+		dbDateMax = Collections.min(repoAll, dataComparator);
+				
 		root = new VerticalLayout();
 		addButtonsLayout();
 		
@@ -141,7 +147,7 @@ public class AppUi extends UI {
 		});
 
 		predictBt.addClickListener(c -> {
-//			Notification.show(modelRepo.findFirstByOrderByCurrency_dateAsc().toString());
+		Notification.show(dbDateMax.getCurrency_date().toString());
 		});
 
 	}
