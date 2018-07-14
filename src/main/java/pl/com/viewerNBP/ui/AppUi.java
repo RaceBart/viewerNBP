@@ -43,8 +43,8 @@ public class AppUi extends UI {
 	private Button predictBt = new Button("Predict", VaadinIcons.CLOCK);
 	private ComboBox<String> currencyChoose = new ComboBox<>();
 	private ListSelect<String> sample = new ListSelect<>();
-	private DateField startDate = new DateField();
-	private DateField endDate = new DateField();
+	private DateField startDate = new DateField("Choose start date");
+	private DateField endDate = new DateField("Choose start date");
 	private List<String> selectedCurrencies = new LinkedList();
 	private List<String> downloadedCurrencies = new LinkedList();
 	private List<List<CurrenciesModel>> dataToDraw = new LinkedList();
@@ -114,13 +114,14 @@ public class AppUi extends UI {
 		currencyChoose.setPlaceholder("Choose Currency");
 		currencyChoose.setEmptySelectionAllowed(false);
 		sample.setItems(nbpSender.getCurrenciesList());
-		sample.setRows(2);
+		sample.setRows(4);
 		startDate.setDateFormat("yyyy-MM-dd");
 		endDate.setDateFormat("yyyy-MM-dd");
 		endDate.setValue(LocalDate.now());
-		addBt.setHeight("100%");
-		dataChooseLayout.addComponents(sample, addBt, clearBt, drawBt, currencyChoose, startDate, endDate,
-				databaseValueSettBt, predictBt);
+		VerticalLayout buttons1 = new VerticalLayout();
+		buttons1.addComponents(clearBt,drawBt);
+		buttons1.setSizeFull();
+		dataChooseLayout.addComponents(sample, startDate, endDate,databaseValueSettBt, predictBt);
 		
 		root.addComponent(dataChooseLayout);
 	}
