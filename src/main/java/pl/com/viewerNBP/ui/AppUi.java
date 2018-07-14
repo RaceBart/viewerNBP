@@ -121,7 +121,7 @@ public class AppUi extends UI {
 		VerticalLayout buttons1 = new VerticalLayout();
 		buttons1.addComponents(clearBt,drawBt);
 		buttons1.setSizeFull();
-		dataChooseLayout.addComponents(sample, startDate, endDate,databaseValueSettBt, predictBt);
+		dataChooseLayout.addComponents(sample, buttons1,startDate, endDate,databaseValueSettBt, predictBt);
 		
 		root.addComponent(dataChooseLayout);
 	}
