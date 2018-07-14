@@ -11,7 +11,6 @@ public interface CurrenciesModelRepo extends JpaRepository<CurrenciesModel, Inte
 	
 
 	List<CurrenciesModel> findByCurrencyname(String currencyname);
-	
-//	Date findFirstByOrderByCurrency_dateAsc();
+
 
 }

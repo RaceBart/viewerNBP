@@ -58,14 +58,16 @@ public class AppUi extends UI {
 	private NbpApiSender nbpSender = new NbpApiSender();
 	private CurrenciesModel dbDateMin;
 	private CurrenciesModel dbDateMax;
+	private List<String> currenciesList = new LinkedList();
 
 	@Override
 	protected void init(VaadinRequest request) {
-
-		List<CurrenciesModel> repoAll = modelRepo.findAll();
+		currenciesList = nbpSender.getCurrenciesList();
+		if(!currenciesList.isEmpty()) {
+		List<CurrenciesModel> repoAll = modelRepo.findByCurrencyname(currenciesList.get(0));
 		dbDateMax = Collections.max(repoAll, dataComparator);
 		dbDateMax = Collections.min(repoAll, dataComparator);
-				
+		}	
 		root = new VerticalLayout();
 		addButtonsLayout();
 		
@@ -77,6 +79,7 @@ public class AppUi extends UI {
 
 	private void addButtonsLayout() {
 		HorizontalLayout dataChooseLayout = new HorizontalLayout();
+		
 		currencyChoose.setItems(nbpSender.getCurrenciesList());
 		currencyChoose.setPlaceholder("Choose Currency");
 		currencyChoose.setEmptySelectionAllowed(false);
