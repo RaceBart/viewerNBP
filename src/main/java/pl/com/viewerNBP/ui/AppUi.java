@@ -59,7 +59,7 @@ public class AppUi extends UI {
 
 
 	private void addChartLayout() {
-		List<CurrenciesModel> cur1 = modelRepo.findByCurrencyname("EURO");
+		List<CurrenciesModel> cur1 = modelRepo.findByCurrencyname("euro");
 		Notification.show(String.valueOf(cur1.size()));
 		
 //	    Collections.sort(cur1, new Comparator<CurrenciesModel>() {
