@@ -155,7 +155,7 @@ public class AppUi extends UI {
 				});
 				Notification.show(String.valueOf(subList.get(0).size()));
 				Chart chart = new Chart();
-				Component chartComp = chart.chartLine(dataToDraw);
+				Component chartComp = chart.chartLine(subList);
 				chartComp.setSizeFull();
 				root.addComponent(chartComp);		
 
