@@ -119,7 +119,7 @@ public class AppUi extends UI {
 //			addChartLayout();
 			
 			
-			if(!selectedCurrencies.isEmpty()||!selectedCurrencies.equals(downloadedCurrencies)) {
+			if(!selectedCurrencies.isEmpty()&&!downloadedCurrencies.equals(selectedCurrencies)) {
 				selectedCurrencies.stream().forEach(s->{
 					dataToDraw.add(modelRepo.findByCurrencyname(s));
 					downloadedCurrencies.add(s);
