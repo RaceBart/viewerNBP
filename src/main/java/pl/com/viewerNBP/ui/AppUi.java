@@ -40,7 +40,7 @@ public class AppUi extends UI {
 	private Button databaseValueSettBt = new Button("DB Settings", VaadinIcons.COG_O);
 	private Button predictBt = new Button("Predict", VaadinIcons.CLOCK);
 	private ComboBox<String> currencyChoose = new ComboBox<>();
-	private ListSelect<String> sample = new ListSelect<>("Select an option");
+	private ListSelect<String> sample = new ListSelect<>();
 	private DateField startDate = new DateField();
 	private DateField endDate = new DateField();
 	private List<String> selectedCurrencies = new LinkedList();
@@ -60,6 +60,8 @@ public class AppUi extends UI {
 	protected void init(VaadinRequest request) {
 
 		root = new VerticalLayout();
+		addButtonsLayout();
+
 		
 		//Start chart values
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -76,7 +78,6 @@ public class AppUi extends UI {
 		chartComp = chart.chartLine(dataToDraw);
 		chartComp.setSizeFull();
 		root.addComponent(chartComp);
-		addButtonsLayout();
 		setupButtonsBehaviour();
 		addChartLayout();
 		getVaules();
@@ -152,12 +153,13 @@ public class AppUi extends UI {
 					Collections.sort(d, dataComparator);
 				});
 //				HorizontalLayout chartLayout = new HorizontalLayout();
+				root.removeComponent(chartComp);
 				Chart chart = new Chart();
 				Component chartComp = chart.chartLine(dataToDraw);
 				chartComp.setSizeFull();
 //				chartLayout.addComponentsAndExpand(chartComp);
 //				chartLayout.setSizeFull();
-				root.replaceComponent(chartComp, chartComp);
+				root.addComponent(chartComp);
 //				
 
 				Notification.show(
