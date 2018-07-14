@@ -58,26 +58,29 @@ public class AppUi extends UI {
 	@Override
 	protected void init(VaadinRequest request) {
 
+		root = new VerticalLayout();
+		
+		//Start chart values
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			// Date date = sdf.parse("2018-07-01");
 			List<CurrenciesModel> sampleList = new LinkedList();
 			sampleList.add(new CurrenciesModel(sdf.parse("2018-07-01"), "test", 1.1));
 			sampleList.add(new CurrenciesModel(sdf.parse("2018-07-02"), "test", 2.1));
 			sampleList.add(new CurrenciesModel(sdf.parse("2018-07-03"), "test", 1.1));
 			dataToDraw.add(sampleList);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		root = new VerticalLayout();
-		setContent(root);
+		chart = new Chart();
+		Component chartComp = chart.chartLine(dataToDraw);
+		chartComp.setSizeFull();
+		root.addComponent(chartComp);
 		addButtonsLayout();
 		setupButtonsBehaviour();
 		addChartLayout();
 		getVaules();
 		drawChart();
+		setContent(root);
 
 	}
 
@@ -151,7 +154,8 @@ public class AppUi extends UI {
 				chartComp.setSizeFull();
 //				chartLayout.addComponentsAndExpand(chartComp);
 //				chartLayout.setSizeFull();
-				root.addComponent(chartComp);
+				root.replaceComponent(chartComp, chartComp);
+//				
 
 				Notification.show(
 						String.valueOf(selectedCurrencies.size()) + "  " + String.valueOf(downloadedCurrencies.size()));
