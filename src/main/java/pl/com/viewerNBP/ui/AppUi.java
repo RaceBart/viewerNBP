@@ -160,7 +160,6 @@ public class AppUi extends UI {
 //				chartLayout.addComponentsAndExpand(chartComp);
 //				chartLayout.setSizeFull();
 				root.addComponent(chartComp);
-//				
 
 				Notification.show(
 						String.valueOf(selectedCurrencies.size()) + "  " + String.valueOf(downloadedCurrencies.size()));
