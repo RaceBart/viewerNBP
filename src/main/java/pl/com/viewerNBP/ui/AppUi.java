@@ -20,6 +20,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -38,8 +39,8 @@ public class AppUi extends UI {
 	private Button databaseValueSettBt = new Button("DB Settings",VaadinIcons.COG_O);
 	private Button predictBt = new Button("Predict",VaadinIcons.CLOCK);
 	private ComboBox<String> currencyChoose=new ComboBox<>();
-	private ComboBox<String> selectedCurrenciesCombo=new ComboBox<>();
-    private DateField startDate = new DateField();
+	private ListSelect<String> sample = new ListSelect<>("Select an option");
+	private DateField startDate = new DateField();
     private DateField endDate =  new DateField();	
     private List<String> selectedCurrencies = new LinkedList();
     private List<String> downloadedCurrencies = new LinkedList();
@@ -95,10 +96,12 @@ public class AppUi extends UI {
 		currencyChoose.setItems(nbpSender.getCurrenciesList());
 		currencyChoose.setPlaceholder("Choose Currency");
 		currencyChoose.setEmptySelectionAllowed(false);
+		sample.setItems(nbpSender.getCurrenciesList());
+		sample.setRows(3);
 		startDate.setDateFormat("yyyy-MM-dd");
 		endDate.setDateFormat("yyyy-MM-dd");
 		endDate.setValue(LocalDate.now());
-		dataChooseLayout.addComponents(selectedCurrenciesCombo,addBt,clearBt,drawBt,currencyChoose,startDate,endDate,databaseValueSettBt,predictBt);
+		dataChooseLayout.addComponents(sample,addBt,clearBt,drawBt,currencyChoose,startDate,endDate,databaseValueSettBt,predictBt);
 		root.addComponent(dataChooseLayout);		
 	}
 
@@ -110,7 +113,7 @@ public class AppUi extends UI {
 		addBt.addClickListener(c->{
 			if(!selectedCurrencies.contains(currencyChoose.getValue())) {
 				selectedCurrencies.add(currencyChoose.getValue());
-				selectedCurrenciesCombo.setItems(selectedCurrencies);
+//				selectedCurrenciesCombo.setItems(selectedCurrencies);
 			}else {
 				Notification.show("Choose new currency");
 			}
@@ -122,7 +125,7 @@ public class AppUi extends UI {
 		
 		drawBt.addClickListener(c->{
 //			addChartLayout();
-			
+//			selectedCurrenciesCombo.setItems(selectedCurrencies);
 			
 			if(!selectedCurrencies.isEmpty()) {
 				dataToDraw.clear();
