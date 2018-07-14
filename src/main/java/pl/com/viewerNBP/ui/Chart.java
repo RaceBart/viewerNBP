@@ -16,7 +16,7 @@ import com.byteowls.vaadin.chartjs.utils.ColorUtils;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Component;
 
-public class WykresSlup {
+public class Chart {
 	public Component wykresLin(List<CurrenciesModel> cur1) {
 		LineDataset dataset1 = new LineDataset();
 
@@ -29,42 +29,6 @@ public class WykresSlup {
 		});
 		
 		dataset1.dataAsList(myData1);
-
-
-		
-//		LineDataset dataset2 = new LineDataset();
-//		LineDataset dataset3 = new LineDataset();
-//		myData1.add(20.0);
-//		myData1.add(10.0);
-//		myData1.add(30.0);
-//		myData1.add(20.0);
-//		myData1.add(70.0);
-//		myData1.add(10.0);
-//		myData1.add(20.0);
-//		List<Double> myData2 = new ArrayList<>();
-//		myData2.add(55.0);
-//		myData2.add(30.0);
-//		myData2.add(10.0);
-//		myData2.add(70.0);
-//		myData2.add(33.0);
-//		myData2.add(6.0);
-//		myData2.add(44.0);
-//		List<Double> myData3 = new ArrayList<>();
-//		myData3.add(0.42);
-//		myData3.add(-0.35);
-//		myData3.add(0.12);
-//		dataset2.dataAsList(myData2);
-//		dataset3.dataAsList(myData3);
-//		labels.add("Poniedziałek");
-//		labels.add("Wtorek");
-//		labels.add("Środa");
-//		labels.add("Czwartek");
-//		labels.add("Piątek");
-//		labels.add("Sobota");
-//		labels.add("Niedziela");
-		
-		
-
 		
 		LineChartConfig lineConfig = new LineChartConfig();
 		

@@ -41,7 +41,7 @@ public class AppUi extends UI {
     private DateField endDate =  new DateField();	
     
 	private NbpApiSender nbpSender = new NbpApiSender("http://api.nbp.pl/api/exchangerates/tables/a/");
-	private WykresSlup slup;
+	private Chart slup;
     
 	@Override
 	protected void init(VaadinRequest request) {
@@ -49,7 +49,7 @@ public class AppUi extends UI {
 		setContent(root);
 		addButtonsLayout();
 		setupButtonsBehaviour();
-		addChartLayout();
+//		addChartLayout();
 		getVaules();
 		drawChart();
 
@@ -59,23 +59,27 @@ public class AppUi extends UI {
 
 
 	private void addChartLayout() {
-		List<CurrenciesModel> cur1 = modelRepo.findByCurrencyname("euro");
-	    Collections.sort(cur1, new Comparator<CurrenciesModel>() {
-	        public int compare(CurrenciesModel o1, CurrenciesModel o2) {
-	            return o1.getCurrency_date().compareTo(o2.getCurrency_date());
-	            }
-	    });
-		slup = new WykresSlup();
-		Component chartComp = slup.wykresLin(cur1);
-		chartComp.setSizeFull();
-		HorizontalLayout chartLayout = new HorizontalLayout();
+		List<CurrenciesModel> cur1 = modelRepo.findByCurrencyname("EURO");
+		Notification.show(String.valueOf(cur1.size()));
+		
+//	    Collections.sort(cur1, new Comparator<CurrenciesModel>() {
+//	        public int compare(CurrenciesModel o1, CurrenciesModel o2) {
+//	            return o1.getCurrency_date().compareTo(o2.getCurrency_date());
+//	            }
+//	    });
+//		slup = new Chart();
+//		Component chartComp = slup.wykresLin(cur1);
+//		chartComp.setSizeFull();
+//		HorizontalLayout chartLayout = new HorizontalLayout();
+		
 //		currencyList = new VerticalLayout();
 //		currencyList.setWidth("10%");
 //		chartLayout.addComponentsAndExpand(slup.wykresLin());
 //		chartLayout.addComponent(currencyList);
-		chartLayout.addComponentsAndExpand(chartComp);
-		chartLayout.setSizeFull();
-		root.addComponent(chartLayout);
+		
+//		chartLayout.addComponentsAndExpand(chartComp);
+//		chartLayout.setSizeFull();
+//		root.addComponent(chartLayout);
 
 	}
 
@@ -105,6 +109,10 @@ public class AppUi extends UI {
 			settingsWindow.setDraggable(true);
 			settingsWindow.setModal(true);
 			UI.getCurrent().addWindow(settingsWindow);
+		});
+		
+		drawBt.addClickListener(c->{
+			addChartLayout();
 		});
 	}
 	
