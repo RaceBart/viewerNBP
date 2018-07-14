@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
@@ -118,11 +119,13 @@ public class AppUi extends UI {
 		startDate.setDateFormat("yyyy-MM-dd");
 		endDate.setDateFormat("yyyy-MM-dd");
 		endDate.setValue(LocalDate.now());
-		VerticalLayout buttons1 = new VerticalLayout();
-		buttons1.addComponents(clearBt,drawBt);
-		buttons1.setSizeFull();
-		dataChooseLayout.addComponents(sample, buttons1,startDate, endDate,databaseValueSettBt, predictBt);
-		
+		dataChooseLayout.addComponents(sample, drawBt,clearBt,startDate, endDate,databaseValueSettBt, predictBt);
+		dataChooseLayout.setComponentAlignment(drawBt, Alignment.BOTTOM_LEFT);
+		dataChooseLayout.setComponentAlignment(clearBt, Alignment.BOTTOM_LEFT);
+		dataChooseLayout.setComponentAlignment(startDate, Alignment.BOTTOM_LEFT);
+		dataChooseLayout.setComponentAlignment(endDate, Alignment.BOTTOM_LEFT);
+		dataChooseLayout.setComponentAlignment(databaseValueSettBt, Alignment.BOTTOM_LEFT);
+		dataChooseLayout.setComponentAlignment(predictBt, Alignment.BOTTOM_RIGHT);
 		root.addComponent(dataChooseLayout);
 	}
 
