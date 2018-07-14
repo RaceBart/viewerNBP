@@ -138,7 +138,9 @@ public class AppUi extends UI {
 
 		clearBt.addClickListener(c -> {
 //			root.removeComponent(chartComp);
-			Notification.show(String.valueOf( sample.isEmpty()));
+			root.removeAllComponents();
+			addButtonsLayout();
+
 		});
 
 		drawBt.addClickListener(c -> {
