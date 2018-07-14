@@ -110,12 +110,14 @@ public class AppUi extends UI {
 		currencyChoose.setPlaceholder("Choose Currency");
 		currencyChoose.setEmptySelectionAllowed(false);
 		sample.setItems(nbpSender.getCurrenciesList());
-		sample.setRows(3);
+		sample.setRows(2);
 		startDate.setDateFormat("yyyy-MM-dd");
 		endDate.setDateFormat("yyyy-MM-dd");
 		endDate.setValue(LocalDate.now());
+		addBt.setHeight("100%");
 		dataChooseLayout.addComponents(sample, addBt, clearBt, drawBt, currencyChoose, startDate, endDate,
 				databaseValueSettBt, predictBt);
+		
 		root.addComponent(dataChooseLayout);
 	}
 
