@@ -41,6 +41,7 @@ public class AppUi extends UI {
     private DateField startDate = new DateField();
     private DateField endDate =  new DateField();	
     private List<String> selectedCurrencies = new LinkedList();
+    private List<String> downloadedCurrencies = new LinkedList();
     private List<List<CurrenciesModel>> dataToDraw = new LinkedList();
 	private Comparator<CurrenciesModel> dataComparator = new Comparator<CurrenciesModel>() {
 	      public int compare(CurrenciesModel o1, CurrenciesModel o2) {
@@ -117,22 +118,23 @@ public class AppUi extends UI {
 		drawBt.addClickListener(c->{
 //			addChartLayout();
 			
-			Notification.show(String.valueOf(dataToDraw.size()));
 			
-//			if(!selectedCurrencies.isEmpty()) {
-//				selectedCurrencies.stream().forEach(s->{
-//					dataToDraw.add(modelRepo.findByCurrencyname(s));
-//				});
-//				
-//				dataToDraw.stream().forEach(d->{
-//					Collections.sort(d, dataComparator);
-//				});
-//				
-//
-//				
-//			}else {
-//				Notification.show("Choose some currency to show");
-//			}
+			if(!selectedCurrencies.isEmpty()||!selectedCurrencies.equals(downloadedCurrencies)) {
+				selectedCurrencies.stream().forEach(s->{
+					dataToDraw.add(modelRepo.findByCurrencyname(s));
+					downloadedCurrencies.add(s);
+				});
+				
+				dataToDraw.stream().forEach(d->{
+					Collections.sort(d, dataComparator);
+				});
+				
+				Notification.show(String.valueOf(selectedCurrencies.size())+ "  " + String.valueOf(downloadedCurrencies.size()));
+
+				
+			}else {
+				Notification.show("Choose some currency to show");
+			}
 		});
 		
 		databaseValueSettBt.addClickListener(s->{
