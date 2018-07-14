@@ -38,6 +38,7 @@ public class AppUi extends UI {
 	private Button databaseValueSettBt = new Button("DB Settings",VaadinIcons.COG_O);
 	private Button predictBt = new Button("Predict",VaadinIcons.CLOCK);
 	private ComboBox<String> currencyChoose=new ComboBox<>();
+	private ComboBox<String> selectedCurrenciesCombo=new ComboBox<>();
     private DateField startDate = new DateField();
     private DateField endDate =  new DateField();	
     private List<String> selectedCurrencies = new LinkedList();
@@ -107,9 +108,12 @@ public class AppUi extends UI {
 
 		
 		addBt.addClickListener(c->{
-//			currencyList.addComponent(new Label("aaaaaaaaaaaaaa"));
-//			Notification.show(modelRepo.findAll().get(0).getCurrency_name());
-			selectedCurrencies.add(currencyChoose.getValue());
+			if(!selectedCurrencies.contains(currencyChoose.getValue())) {
+				selectedCurrencies.add(currencyChoose.getValue());
+				selectedCurrenciesCombo.setItems(selectedCurrencies);
+			}else {
+				Notification.show("Choose new currency");
+			}
 		});
 		
 		clearBt.addClickListener(c->{
@@ -120,7 +124,8 @@ public class AppUi extends UI {
 //			addChartLayout();
 			
 			
-			if(!selectedCurrencies.isEmpty()&&!downloadedCurrencies.equals(selectedCurrencies)) {
+			if(!selectedCurrencies.isEmpty()) {
+				dataToDraw.clear();
 				selectedCurrencies.stream().forEach(s->{
 					dataToDraw.add(modelRepo.findByCurrencyname(s));
 					downloadedCurrencies.add(s);
