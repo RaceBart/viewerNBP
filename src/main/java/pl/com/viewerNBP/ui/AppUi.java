@@ -147,7 +147,7 @@ public class AppUi extends UI {
 					List<CurrenciesModel> tempList = new LinkedList<>();
 					d.stream().forEach(cur->{
 						LocalDate localDateTemp = cur.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-						if(!localDateTemp.isBefore(startDate.getValue())) {
+						if((!localDateTemp.isBefore(startDate.getValue())&&(!localDateTemp.isAfter(endDate.getValue())))) {
 							tempList.add(cur);
 						}
 					});
