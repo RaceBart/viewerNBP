@@ -48,7 +48,7 @@ public class SettingsWindow extends Window {
 		this.modelRepo = modelRepo;
 		startDate.setDateFormat("yyyy-MM-dd");
 		endDate.setDateFormat("yyyy-MM-dd");
-//		getDbDates();
+		getDbDates();
 		
 		getCurBt.addClickListener(c->{
 //			List<CurrenciesModel> resultList = nbpSender.getAllFromNbp("2018-07-03", "2018-07-06");
