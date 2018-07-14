@@ -98,7 +98,7 @@ public class AppUi extends UI {
 		startDate.setDateFormat("yyyy-MM-dd");
 		endDate.setDateFormat("yyyy-MM-dd");
 		endDate.setValue(LocalDate.now());
-		dataChooseLayout.addComponents(addBt,clearBt,drawBt,currencyChoose,startDate,endDate,databaseValueSettBt,predictBt);
+		dataChooseLayout.addComponents(selectedCurrenciesCombo,addBt,clearBt,drawBt,currencyChoose,startDate,endDate,databaseValueSettBt,predictBt);
 		root.addComponent(dataChooseLayout);		
 	}
 
