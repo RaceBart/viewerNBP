@@ -60,13 +60,21 @@ public class AppUi extends UI {
 
 	private void addChartLayout() {
 		List<CurrenciesModel> cur1 = modelRepo.findByCurrencyname("euro");
-		Notification.show(String.valueOf(cur1.size()));
 		
-//	    Collections.sort(cur1, new Comparator<CurrenciesModel>() {
-//	        public int compare(CurrenciesModel o1, CurrenciesModel o2) {
-//	            return o1.getCurrency_date().compareTo(o2.getCurrency_date());
-//	            }
-//	    });
+	    Collections.sort(cur1, new Comparator<CurrenciesModel>() {
+	        public int compare(CurrenciesModel o1, CurrenciesModel o2) {
+	            return o1.getCurrency_date().compareTo(o2.getCurrency_date());
+	            }
+	    });
+	    
+	    StringBuilder sb = new StringBuilder();
+	    
+	    cur1.stream().forEach(f->{
+	    	sb.append(f.getCurrency_date());
+	    });
+	    
+		Notification.show(sb.toString());
+
 //		slup = new Chart();
 //		Component chartComp = slup.wykresLin(cur1);
 //		chartComp.setSizeFull();
