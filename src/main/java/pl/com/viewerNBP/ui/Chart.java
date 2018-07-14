@@ -1,8 +1,11 @@
 package pl.com.viewerNBP.ui;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
 import com.byteowls.vaadin.chartjs.ChartJs;
 import com.byteowls.vaadin.chartjs.config.LineChartConfig;
 import com.byteowls.vaadin.chartjs.data.Dataset;
@@ -20,6 +23,7 @@ public class Chart {
 	public Component chartLine(List<List<CurrenciesModel>> objectsToDraw) {
 		LineDataset dataset1 = new LineDataset();
 //	    List<List<CurrenciesModel>> objectsToDraw = new LinkedList();
+		Map<String,LineDataset> mapDataset = new LinkedHashMap();
 	    List<List<Double>> dataToDraw = new LinkedList();
 	    List<LineDataset> datasetToDraw = new LinkedList();
 		List<Double> myData1 = new ArrayList<>();
@@ -42,6 +46,7 @@ public class Chart {
 			 dataToDraw.add(tempList);
 			 tempDataset.dataAsList(tempList);
 			 datasetToDraw.add(tempDataset);
+			 mapDataset.put(o.get(0).getCurrency_name(), tempDataset);
 		 });
 
 //
@@ -54,9 +59,14 @@ public class Chart {
 		LineChartConfig lineConfig = new LineChartConfig();
 		lineConfig.data().labelsAsList(labels);
 		
-		datasetToDraw.stream().forEach(d->{
-			lineConfig.data().addDataset(d.label("").fill(false).lineTension(0));
-		});
+		for (String entry : mapDataset.keySet()) {
+			mapDataset.get(entry);
+			lineConfig.data().addDataset(mapDataset.get(entry).label(entry).fill(false).lineTension(0));
+		}
+		
+//		datasetToDraw.stream().forEach(d->{
+//			lineConfig.data().addDataset(d.label("").fill(false).lineTension(0));
+//		});
 		
 //		lineConfig.data().labelsAsList(labels)				
 //		lineConfig.addDataset(dataset1.label(cur1.get(0).getCurrency_name()).fill(false).lineTension(0))
