@@ -41,7 +41,7 @@ public class AppUi extends UI {
     private DateField endDate =  new DateField();	
     
 	private NbpApiSender nbpSender = new NbpApiSender("http://api.nbp.pl/api/exchangerates/tables/a/");
-	private Chart slup;
+	private Chart chart;
     
 	@Override
 	protected void init(VaadinRequest request) {
@@ -49,7 +49,7 @@ public class AppUi extends UI {
 		setContent(root);
 		addButtonsLayout();
 		setupButtonsBehaviour();
-//		addChartLayout();
+		addChartLayout();
 		getVaules();
 		drawChart();
 
@@ -73,21 +73,21 @@ public class AppUi extends UI {
 	    	sb.append(f.getCurrency_date());
 	    });
 	    
-		Notification.show(sb.toString());
+//		Notification.show(sb.toString());
 
-//		slup = new Chart();
-//		Component chartComp = slup.wykresLin(cur1);
-//		chartComp.setSizeFull();
-//		HorizontalLayout chartLayout = new HorizontalLayout();
+		chart = new Chart();
+		Component chartComp = chart.chartLine(cur1);
+		chartComp.setSizeFull();
+		HorizontalLayout chartLayout = new HorizontalLayout();
 		
 //		currencyList = new VerticalLayout();
 //		currencyList.setWidth("10%");
 //		chartLayout.addComponentsAndExpand(slup.wykresLin());
 //		chartLayout.addComponent(currencyList);
 		
-//		chartLayout.addComponentsAndExpand(chartComp);
-//		chartLayout.setSizeFull();
-//		root.addComponent(chartLayout);
+		chartLayout.addComponentsAndExpand(chartComp);
+		chartLayout.setSizeFull();
+		root.addComponent(chartLayout);
 
 	}
 
@@ -120,7 +120,7 @@ public class AppUi extends UI {
 		});
 		
 		drawBt.addClickListener(c->{
-			addChartLayout();
+//			addChartLayout();
 		});
 	}
 	

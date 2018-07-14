@@ -17,7 +17,7 @@ import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Component;
 
 public class Chart {
-	public Component wykresLin(List<CurrenciesModel> cur1) {
+	public Component chartLine(List<CurrenciesModel> cur1) {
 		LineDataset dataset1 = new LineDataset();
 
 		List<Double> myData1 = new ArrayList<>();
