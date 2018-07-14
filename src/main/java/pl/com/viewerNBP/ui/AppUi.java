@@ -53,7 +53,8 @@ public class AppUi extends UI {
 	};
 
 	private NbpApiSender nbpSender = new NbpApiSender();
-	private Chart chart;
+//	private Chart chart;
+	private Component chartComp;
 
 	@Override
 	protected void init(VaadinRequest request) {
@@ -71,8 +72,8 @@ public class AppUi extends UI {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		chart = new Chart();
-		Component chartComp = chart.chartLine(dataToDraw);
+		Chart chart = new Chart();
+		chartComp = chart.chartLine(dataToDraw);
 		chartComp.setSizeFull();
 		root.addComponent(chartComp);
 		addButtonsLayout();
@@ -133,7 +134,7 @@ public class AppUi extends UI {
 		});
 
 		clearBt.addClickListener(c -> {
-			Notification.show(nbpSender.getBaseURL());
+			root.removeComponent(chartComp);
 		});
 
 		drawBt.addClickListener(c -> {
@@ -151,7 +152,7 @@ public class AppUi extends UI {
 					Collections.sort(d, dataComparator);
 				});
 //				HorizontalLayout chartLayout = new HorizontalLayout();
-				chart = new Chart();
+				Chart chart = new Chart();
 				Component chartComp = chart.chartLine(dataToDraw);
 				chartComp.setSizeFull();
 //				chartLayout.addComponentsAndExpand(chartComp);
