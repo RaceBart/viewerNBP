@@ -141,7 +141,7 @@ public class AppUi extends UI {
 		});
 
 		predictBt.addClickListener(c -> {
-			Notification.show(modelRepo.findFirstByOrderByCurrency_dateAsc().toString());
+//			Notification.show(modelRepo.findFirstByOrderByCurrency_dateAsc().toString());
 		});
 
 	}
