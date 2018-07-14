@@ -116,20 +116,23 @@ public class AppUi extends UI {
 		
 		drawBt.addClickListener(c->{
 //			addChartLayout();
-			if(!selectedCurrencies.isEmpty()) {
-				selectedCurrencies.stream().forEach(s->{
-					dataToDraw.add(modelRepo.findByCurrencyname(s));
-				});
-				
-				dataToDraw.stream().forEach(d->{
-					Collections.sort(d, dataComparator);
-				});
-				
-				Notification.show(String.valueOf(dataToDraw.size()));
-				
-			}else {
-				Notification.show("Choose some currency to show");
-			}
+			
+			Notification.show(String.valueOf(dataToDraw.size()));
+			
+//			if(!selectedCurrencies.isEmpty()) {
+//				selectedCurrencies.stream().forEach(s->{
+//					dataToDraw.add(modelRepo.findByCurrencyname(s));
+//				});
+//				
+//				dataToDraw.stream().forEach(d->{
+//					Collections.sort(d, dataComparator);
+//				});
+//				
+//
+//				
+//			}else {
+//				Notification.show("Choose some currency to show");
+//			}
 		});
 		
 		databaseValueSettBt.addClickListener(s->{
