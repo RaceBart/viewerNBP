@@ -6,6 +6,7 @@ package pl.com.viewerNBP.ui;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,10 @@ public class AppUi extends UI {
 	private ComboBox<String> currencyChoose=new ComboBox<>();
     private DateField startDate = new DateField();
     private DateField endDate =  new DateField();	
+    private List<String> selectedCurrencies = new LinkedList();
+    private List<List<CurrenciesModel>> dataToDraw = new LinkedList();
     
-	private NbpApiSender nbpSender = new NbpApiSender("http://api.nbp.pl/api/exchangerates/tables/a/");
+	private NbpApiSender nbpSender = new NbpApiSender();
 	private Chart chart;
     
 	@Override
@@ -66,25 +69,12 @@ public class AppUi extends UI {
 	            return o1.getCurrency_date().compareTo(o2.getCurrency_date());
 	            }
 	    });
-	    
-	    StringBuilder sb = new StringBuilder();
-	    
-	    cur1.stream().forEach(f->{
-	    	sb.append(f.getCurrency_date());
-	    });
-	    
-//		Notification.show(sb.toString());
 
 		chart = new Chart();
 		Component chartComp = chart.chartLine(cur1);
 		chartComp.setSizeFull();
 		HorizontalLayout chartLayout = new HorizontalLayout();
-		
-//		currencyList = new VerticalLayout();
-//		currencyList.setWidth("10%");
-//		chartLayout.addComponentsAndExpand(slup.wykresLin());
-//		chartLayout.addComponent(currencyList);
-		
+
 		chartLayout.addComponentsAndExpand(chartComp);
 		chartLayout.setSizeFull();
 		root.addComponent(chartLayout);
@@ -107,8 +97,25 @@ public class AppUi extends UI {
 	private void setupButtonsBehaviour() {
 		addBt.addClickListener(c->{
 //			currencyList.addComponent(new Label("aaaaaaaaaaaaaa"));
-			Notification.show(modelRepo.findAll().get(0).getCurrency_name());
+//			Notification.show(modelRepo.findAll().get(0).getCurrency_name());
+			selectedCurrencies.add(currencyChoose.getValue());
 		});
+		
+		clearBt.addClickListener(c->{
+			Notification.show(nbpSender.getBaseURL());
+		});
+		
+		drawBt.addClickListener(c->{
+//			addChartLayout();
+			if(!selectedCurrencies.isEmpty()) {
+				selectedCurrencies.stream().forEach(s->{
+					dataToDraw.add(modelRepo.findByCurrencyname(s));
+				});
+			}else {
+				Notification.show("Choose some currency to show");
+			}
+		});
+		
 		databaseValueSettBt.addClickListener(s->{
 			SettingsWindow settingsWindow = new SettingsWindow("Database Value Settings",modelRepo);
 			settingsWindow.setHeight(50, Unit.PERCENTAGE);
@@ -118,10 +125,11 @@ public class AppUi extends UI {
 			settingsWindow.setModal(true);
 			UI.getCurrent().addWindow(settingsWindow);
 		});
-		
-		drawBt.addClickListener(c->{
-//			addChartLayout();
+
+		predictBt.addClickListener(c->{
+			
 		});
+		
 	}
 	
 	private void drawChart() {

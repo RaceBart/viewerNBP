@@ -35,37 +35,15 @@ public class Chart {
 		lineConfig.data().labelsAsList(labels)				
 		.addDataset(dataset1.label(cur1.get(0).getCurrency_name()).fill(false).lineTension(0))
 		.and().options().responsive(true)
-		.title().display(true).text("tytuł wykresu liniowego").padding(20).and().tooltips()
+		.title().display(true).text("Currency price chart").padding(20).and().tooltips()
 		.mode(InteractionMode.INDEX).intersect(true).and().hover().mode(InteractionMode.NEAREST).intersect(true)
 		.and().scales()
-		.add(Axis.X, new CategoryScale().display(true).scaleLabel().display(true).labelString("Data") 
+		.add(Axis.X, new CategoryScale().display(true).scaleLabel().display(true).labelString("Date") 
 				.and().position(Position.BOTTOM))
-		.add(Axis.Y, new LinearScale().display(true).scaleLabel().display(true).labelString("Wartość").and()
+		.add(Axis.Y, new LinearScale().display(true).scaleLabel().display(true).labelString("Price").and()
 				.position(Position.LEFT))
 		.and().done();
 
-
-
-
-//		lineConfig.data().labelsAsList(labels);
-//		lineConfig.data().labelsAsList(labels)
-				// serie nie wypełnione kolorem
-//				.addDataset(dataset1.label("Dane 1").fill(false).lineTension(0))
-//				.addDataset(dataset2.label("Dane 2").fill(false).lineTension(0))
-				// seria domyślnie ukryta, pojawi się po kliknięciu jej w legendzie
-//				.addDataset(dataset3.label("Dane 3").hidden(true).lineTension(0)).and().options().responsive(true)
-//				.title().display(true).text("tytuł wykresu liniowego").padding(20).and().tooltips()
-//				.mode(InteractionMode.INDEX).intersect(true).and().hover().mode(InteractionMode.NEAREST).intersect(true)
-//				.and().scales()
-//				.add(Axis.X, new CategoryScale().display(true).scaleLabel().display(true).labelString("Dzień tygodnia") // możemy
-//																														// zatytułować
-//																														// oś
-//						.and().position(Position.BOTTOM))
-//				.add(Axis.Y, new LinearScale().display(true).scaleLabel().display(true).labelString("Wartość").and()
-//						.position(Position.LEFT))
-//				.and().done();
-		// pętla która losowo generuje nam kolory, żeby nie wprowadzać ichoddzielnie dla
-		// każdej serii danych
 		for (Dataset<?, ?> ds : lineConfig.data().getDatasets()) {
 			LineDataset lds = (LineDataset) ds;
 			String color = ColorUtils.randomColor(0.5);

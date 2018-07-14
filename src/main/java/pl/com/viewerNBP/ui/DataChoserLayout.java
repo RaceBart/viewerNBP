@@ -27,7 +27,7 @@ public class DataChoserLayout extends  HorizontalLayout{
 
 
 	private List<String> currencyList;
-	private NbpApiSender nbpSender = new NbpApiSender("http://api.nbp.pl/api/exchangerates/tables/a/");
+	private NbpApiSender nbpSender = new NbpApiSender();
 	
 	public DataChoserLayout() {
 		super();

@@ -39,7 +39,7 @@ public class SettingsWindow extends Window {
 	private Button getCurBt = new Button("Get New Currency Data");
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
-	private NbpApiSender nbpSender = new NbpApiSender("http://api.nbp.pl/api/exchangerates/tables/a/");
+	private NbpApiSender nbpSender = new NbpApiSender();
 
 	private static final long serialVersionUID = 1L;
 

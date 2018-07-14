@@ -25,11 +25,17 @@ import com.vaadin.spring.annotation.SpringComponent;
 
 //@Service
 public class NbpApiSender {
-	public NbpApiSender(String baseURL) {
+//	public NbpApiSender(String baseURL) {
+//		super();
+//		this.baseURL = baseURL;
+//	}
+//	private String baseURL;
+	
+	public NbpApiSender() {
 		super();
-		this.baseURL = baseURL;
 	}
-	private String baseURL;
+	
+	private static String baseURL = "http://api.nbp.pl/api/exchangerates/tables/a/";
 	
 	private String sendRequest(String reqAttr) {
 		String response = "";
@@ -109,6 +115,14 @@ public class NbpApiSender {
 		}
 		
 		return result;
+	}
+
+	public static String getBaseURL() {
+		return baseURL;
+	}
+
+	public static void setBaseURL(String baseURL) {
+		NbpApiSender.baseURL = baseURL;
 	}
 	
 	
