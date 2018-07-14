@@ -93,6 +93,7 @@ public class AppUi extends UI {
 		HorizontalLayout dataChooseLayout = new HorizontalLayout();
 		currencyChoose.setItems(nbpSender.getCurrenciesList());
 		currencyChoose.setPlaceholder("Choose Currency");
+		currencyChoose.setEmptySelectionAllowed(false);
 		startDate.setDateFormat("yyyy-MM-dd");
 		endDate.setDateFormat("yyyy-MM-dd");
 		endDate.setValue(LocalDate.now());
@@ -128,12 +129,10 @@ public class AppUi extends UI {
 				dataToDraw.stream().forEach(d->{
 					Collections.sort(d, dataComparator);
 				});
-				
+				HorizontalLayout chartLayout = new HorizontalLayout();
 				chart = new Chart();
 				Component chartComp = chart.chartLine(dataToDraw);
 				chartComp.setSizeFull();
-				HorizontalLayout chartLayout = new HorizontalLayout();
-
 				chartLayout.addComponentsAndExpand(chartComp);
 				chartLayout.setSizeFull();
 				root.addComponent(chartLayout);
