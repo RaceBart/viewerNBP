@@ -66,20 +66,20 @@ public class AppUi extends UI {
 
 		
 		//Start chart values
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		try {
-			List<CurrenciesModel> sampleList = new LinkedList();
-			sampleList.add(new CurrenciesModel(sdf.parse("2018-07-01"), "test", 1.1));
-			sampleList.add(new CurrenciesModel(sdf.parse("2018-07-02"), "test", 2.1));
-			sampleList.add(new CurrenciesModel(sdf.parse("2018-07-03"), "test", 1.1));
-			dataToDraw.add(sampleList);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		Chart chart = new Chart();
-		chartComp = chart.chartLine(dataToDraw);
-		chartComp.setSizeFull();
-		root.addComponent(chartComp);
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		try {
+//			List<CurrenciesModel> sampleList = new LinkedList();
+//			sampleList.add(new CurrenciesModel(sdf.parse("2018-07-01"), "test", 1.1));
+//			sampleList.add(new CurrenciesModel(sdf.parse("2018-07-02"), "test", 2.1));
+//			sampleList.add(new CurrenciesModel(sdf.parse("2018-07-03"), "test", 1.1));
+//			dataToDraw.add(sampleList);
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+//		Chart chart = new Chart();
+//		chartComp = chart.chartLine(dataToDraw);
+//		chartComp.setSizeFull();
+//		root.addComponent(chartComp);
 		setupButtonsBehaviour();
 		addChartLayout();
 		getVaules();
@@ -145,11 +145,12 @@ public class AppUi extends UI {
 			// addChartLayout();
 			// selectedCurrenciesCombo.setItems(selectedCurrencies);
 
-			if (!selectedCurrencies.isEmpty()) {
+			if (!sample.isEmpty()) {
 				dataToDraw.clear();
-				selectedCurrencies.stream().forEach(s -> {
+//				downloadedCurrencies.clear();
+				sample.getValue().stream().forEach(s -> {
 					dataToDraw.add(modelRepo.findByCurrencyname(s));
-					downloadedCurrencies.add(s);
+//					downloadedCurrencies.add(s);
 				});
 
 				dataToDraw.stream().forEach(d -> {
@@ -160,7 +161,8 @@ public class AppUi extends UI {
 				Chart chart = new Chart();
 				Component chartComp = chart.chartLine(dataToDraw);
 				chartComp.setSizeFull();
-				root.requestRepaint();
+//				root.requestRepaint();
+				root.addComponent(chartComp);
 //				chartLayout.addComponentsAndExpand(chartComp);
 //				chartLayout.setSizeFull();
 				//root.addComponent(chartComp);
