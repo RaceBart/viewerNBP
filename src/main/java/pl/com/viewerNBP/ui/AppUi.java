@@ -57,18 +57,19 @@ public class AppUi extends UI {
 	};
 
 	private NbpApiSender nbpSender = new NbpApiSender();
-	private CurrenciesModel dbDateMin;
-	private CurrenciesModel dbDateMax;
+	private LocalDate localDateMin;
+	private LocalDate localDateMax;
+	private LocalDate selectedLocalDateMin;
+	private LocalDate selectedLocalDateMax;
+
 	private List<String> currenciesList = new LinkedList();
 
 	@Override
 	protected void init(VaadinRequest request) {
 		currenciesList = nbpSender.getCurrenciesList();
-		if(!currenciesList.isEmpty()) {
-		List<CurrenciesModel> repoAll = modelRepo.findByCurrencyname(currenciesList.get(0));
-		dbDateMax = Collections.max(repoAll, dataComparator);
-		dbDateMax = Collections.min(repoAll, dataComparator);
-		}	
+	
+		getDataRange();
+		
 		root = new VerticalLayout();
 		addButtonsLayout();
 		
@@ -76,6 +77,18 @@ public class AppUi extends UI {
 		setupDatapicker();
 		setContent(root);
 
+	}
+
+	private void getDataRange() {
+		if(!currenciesList.isEmpty()) {
+		List<CurrenciesModel> repoAll = modelRepo.findByCurrencyname(currenciesList.get(0));
+		CurrenciesModel dbDateMax = Collections.max(repoAll, dataComparator);
+		localDateMax = dbDateMax.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		selectedLocalDateMax = localDateMax;
+		CurrenciesModel dbDateMin = Collections.min(repoAll, dataComparator);
+		localDateMin = dbDateMin.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		selectedLocalDateMin = localDateMin;
+		}		
 	}
 
 	private void addButtonsLayout() {
@@ -102,6 +115,7 @@ public class AppUi extends UI {
 	}
 
 	private void setupButtonsBehaviour() {
+//		LocalDate localDateTemp = null;
 
 		addBt.addClickListener(c -> {
 //			if (!selectedCurrencies.contains(currencyChoose.getValue())) {
@@ -118,8 +132,8 @@ public class AppUi extends UI {
 		});
 
 		drawBt.addClickListener(c -> {
-
-
+			List<List<CurrenciesModel>> subList = new LinkedList();
+			
 			if (!sample.isEmpty()) {
 				dataToDraw.clear();
 				sample.getValue().stream().forEach(s -> {
@@ -129,9 +143,19 @@ public class AppUi extends UI {
 				dataToDraw.stream().forEach(d -> {
 					Collections.sort(d, dataComparator);
 				});
+				dataToDraw.stream().forEach(d -> {
+					List<CurrenciesModel> tempList = new LinkedList<>();
+					d.stream().forEach(cur->{
+//						localDateTemp = cur.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						if(!selectedLocalDateMin.isBefore(cur.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())&&!selectedLocalDateMax.isAfter(cur.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())) {
+							tempList.add(cur);
+						}
+					});
+					subList.add(tempList);
+				});
 
 				Chart chart = new Chart();
-				Component chartComp = chart.chartLine(dataToDraw);
+				Component chartComp = chart.chartLine(subList);
 				chartComp.setSizeFull();
 				root.addComponent(chartComp);		
 
@@ -151,17 +175,27 @@ public class AppUi extends UI {
 		});
 
 		predictBt.addClickListener(c -> {
-		Notification.show(dbDateMax.getCurrency_date().toString());
 		});
 
 	}
 	
 	private void setupDatapicker() {
 		startDate.addValueChangeListener(l->{
-
-			LocalDate localDateMax = dbDateMax.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			if(startDate.getValue().isBefore(localDateMax)) {
-				Notification.show("aaaaa");
+			if(startDate.getValue().isBefore(localDateMin)) {
+				Notification.show("Date is out of range in database");
+				startDate.setValue(localDateMin);
+			}else {
+				selectedLocalDateMin = startDate.getValue();
+			}
+			
+		});
+		
+		endDate.addValueChangeListener(l->{
+			if(endDate.getValue().isAfter(localDateMax)) {
+				Notification.show("Date is out of range in database");
+				endDate.setValue(localDateMax);
+			}else {
+				selectedLocalDateMax = endDate.getValue();
 			}
 			
 		});
