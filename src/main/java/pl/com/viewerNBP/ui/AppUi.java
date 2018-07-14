@@ -146,8 +146,8 @@ public class AppUi extends UI {
 				dataToDraw.stream().forEach(d -> {
 					List<CurrenciesModel> tempList = new LinkedList<>();
 					d.stream().forEach(cur->{
-//						localDateTemp = cur.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-						if(!startDate.getValue().isBefore(cur.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())&&!endDate.getValue().isAfter(cur.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())) {
+						LocalDate localDateTemp = cur.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						if(!localDateTemp.isBefore(startDate.getValue())) {
 							tempList.add(cur);
 						}
 					});
