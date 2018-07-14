@@ -2,6 +2,7 @@ package pl.com.viewerNBP.ui;
 
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -141,7 +142,7 @@ public class AppUi extends UI {
 
 		databaseValueSettBt.addClickListener(s -> {
 			SettingsWindow settingsWindow = new SettingsWindow("Database Value Settings", modelRepo);
-			settingsWindow.setHeight(20, Unit.PERCENTAGE);
+			settingsWindow.setHeight(40, Unit.PERCENTAGE);
 			settingsWindow.setWidth(30, Unit.PERCENTAGE);
 			settingsWindow.center();
 			settingsWindow.setDraggable(true);
@@ -157,6 +158,11 @@ public class AppUi extends UI {
 	
 	private void setupDatapicker() {
 		startDate.addValueChangeListener(l->{
+
+			LocalDate localDateMax = dbDateMax.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			if(startDate.getValue().isBefore(localDateMax)) {
+				Notification.show("aaaaa");
+			}
 			
 		});
 
