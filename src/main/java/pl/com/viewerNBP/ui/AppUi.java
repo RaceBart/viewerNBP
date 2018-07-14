@@ -62,6 +62,9 @@ public class AppUi extends UI {
 	@Override
 	protected void init(VaadinRequest request) {
 
+		List<CurrenciesModel> repoAll = modelRepo.findAll();
+		dbDateMax = Collections.max(repoAll, dataComparator);
+		dbDateMax = Collections.min(repoAll, dataComparator);
 				
 		root = new VerticalLayout();
 		addButtonsLayout();
@@ -144,10 +147,6 @@ public class AppUi extends UI {
 		});
 
 		predictBt.addClickListener(c -> {
-
-			List<CurrenciesModel> repoAll = modelRepo.findAll();
-			dbDateMax = Collections.max(repoAll, dataComparator);
-			dbDateMax = Collections.min(repoAll, dataComparator);
 		Notification.show(dbDateMax.getCurrency_date().toString());
 		});
 
