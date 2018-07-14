@@ -17,24 +17,53 @@ import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Component;
 
 public class Chart {
-	public Component chartLine(List<CurrenciesModel> cur1) {
+	public Component chartLine(List<CurrenciesModel>... curData) {
 		LineDataset dataset1 = new LineDataset();
-
+	    List<List<CurrenciesModel>> objectsToDraw = new LinkedList();
+	    List<List<Double>> dataToDraw = new LinkedList();
+	    List<LineDataset> datasetToDraw = new LinkedList();
 		List<Double> myData1 = new ArrayList<>();
 		List<String> labels = new LinkedList();
+	    
+		 for(List<CurrenciesModel> c : curData){
+			   objectsToDraw.add(c);
+		 }
+		 
+		 objectsToDraw.get(0).stream().forEach(l->{
+				labels.add(l.getCurrency_date().toString().substring(0,10));
+		 });
+		 
+		 objectsToDraw.stream().forEach(o->{
+			 LineDataset tempDataset = new LineDataset();
+			 List<Double> tempList = new LinkedList<>();
+			 o.stream().forEach(d->{
+				 tempList.add(d.getCurrency_value());
+			 });
+			 dataToDraw.add(tempList);
+			 tempDataset.dataAsList(tempList);
+			 datasetToDraw.add(tempDataset);
+		 });
 
-		cur1.stream().forEach(f->{
-			myData1.add(f.getCurrency_value());
-			labels.add(f.getCurrency_date().toString().substring(0,10));
-		});
+//
+//		cur1.stream().forEach(f->{
+//			myData1.add(f.getCurrency_value());
+//		});
 		
 		dataset1.dataAsList(myData1);
 		
 		LineChartConfig lineConfig = new LineChartConfig();
+		lineConfig.data().labelsAsList(labels);
 		
-		lineConfig.data().labelsAsList(labels)				
-		.addDataset(dataset1.label(cur1.get(0).getCurrency_name()).fill(false).lineTension(0))
+		datasetToDraw.stream().forEach(d->{
+			lineConfig.data().addDataset(d.label("").fill(false).lineTension(0));
+		});
+		
+//		lineConfig.data().labelsAsList(labels)				
+//		lineConfig.addDataset(dataset1.label(cur1.get(0).getCurrency_name()).fill(false).lineTension(0))
+		
+		lineConfig.data()
 		.and().options().responsive(true)
+		
 		.title().display(true).text("Currency price chart").padding(20).and().tooltips()
 		.mode(InteractionMode.INDEX).intersect(true).and().hover().mode(InteractionMode.NEAREST).intersect(true)
 		.and().scales()

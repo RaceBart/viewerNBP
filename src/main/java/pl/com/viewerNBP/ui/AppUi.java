@@ -42,12 +42,20 @@ public class AppUi extends UI {
     private DateField endDate =  new DateField();	
     private List<String> selectedCurrencies = new LinkedList();
     private List<List<CurrenciesModel>> dataToDraw = new LinkedList();
+	private Comparator<CurrenciesModel> dataComparator = new Comparator<CurrenciesModel>() {
+	      public int compare(CurrenciesModel o1, CurrenciesModel o2) {
+	          return o1.getCurrency_date().compareTo(o2.getCurrency_date());
+	          }};
+
     
 	private NbpApiSender nbpSender = new NbpApiSender();
 	private Chart chart;
     
 	@Override
 	protected void init(VaadinRequest request) {
+		
+		
+		
 		root = new VerticalLayout();
 		setContent(root);
 		addButtonsLayout();
@@ -55,8 +63,6 @@ public class AppUi extends UI {
 		addChartLayout();
 		getVaules();
 		drawChart();
-
-
 
 	}
 
@@ -95,6 +101,9 @@ public class AppUi extends UI {
 
 
 	private void setupButtonsBehaviour() {
+		
+
+		
 		addBt.addClickListener(c->{
 //			currencyList.addComponent(new Label("aaaaaaaaaaaaaa"));
 //			Notification.show(modelRepo.findAll().get(0).getCurrency_name());
@@ -111,6 +120,13 @@ public class AppUi extends UI {
 				selectedCurrencies.stream().forEach(s->{
 					dataToDraw.add(modelRepo.findByCurrencyname(s));
 				});
+				
+				dataToDraw.stream().forEach(d->{
+					Collections.sort(d, dataComparator);
+				});
+				
+				Notification.show(String.valueOf(dataToDraw.size()));
+				
 			}else {
 				Notification.show("Choose some currency to show");
 			}
