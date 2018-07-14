@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.management.NotificationFilter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.icons.VaadinIcons;
@@ -135,7 +137,8 @@ public class AppUi extends UI {
 		});
 
 		clearBt.addClickListener(c -> {
-			root.removeComponent(chartComp);
+//			root.removeComponent(chartComp);
+			Notification.show(String.valueOf( sample.isEmpty()));
 		});
 
 		drawBt.addClickListener(c -> {
@@ -153,16 +156,16 @@ public class AppUi extends UI {
 					Collections.sort(d, dataComparator);
 				});
 //				HorizontalLayout chartLayout = new HorizontalLayout();
-				root.removeComponent(chartComp);
+				//root.removeComponent(chartComp);
 				Chart chart = new Chart();
 				Component chartComp = chart.chartLine(dataToDraw);
 				chartComp.setSizeFull();
+				root.requestRepaint();
 //				chartLayout.addComponentsAndExpand(chartComp);
 //				chartLayout.setSizeFull();
-				root.addComponent(chartComp);
+				//root.addComponent(chartComp);
 
-				Notification.show(
-						String.valueOf(selectedCurrencies.size()) + "  " + String.valueOf(downloadedCurrencies.size()));
+				
 
 			} else {
 				Notification.show("Choose some currency to show");
