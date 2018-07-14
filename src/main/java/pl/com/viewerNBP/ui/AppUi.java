@@ -4,6 +4,9 @@ package pl.com.viewerNBP.ui;
 
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,9 +28,6 @@ public class AppUi extends UI {
 	
 	@Autowired
 	CurrenciesModelRepo modelRepo;
-	
-//	@Autowired
-//	SettingsWindow settingsWindow;
 
 	private VerticalLayout root;
 	private VerticalLayout currencyList;
@@ -59,8 +59,14 @@ public class AppUi extends UI {
 
 
 	private void addChartLayout() {
+		List<CurrenciesModel> cur1 = modelRepo.findByCurrencyname("euro");
+	    Collections.sort(cur1, new Comparator<CurrenciesModel>() {
+	        public int compare(CurrenciesModel o1, CurrenciesModel o2) {
+	            return o1.getCurrency_date().compareTo(o2.getCurrency_date());
+	            }
+	    });
 		slup = new WykresSlup();
-		Component chartComp = slup.wykresLin();
+		Component chartComp = slup.wykresLin(cur1);
 		chartComp.setSizeFull();
 		HorizontalLayout chartLayout = new HorizontalLayout();
 //		currencyList = new VerticalLayout();
