@@ -69,22 +69,22 @@ public class AppUi extends UI {
 
 
 	private void addChartLayout() {
-		List<CurrenciesModel> cur1 = modelRepo.findByCurrencyname("euro");
-		
-	    Collections.sort(cur1, new Comparator<CurrenciesModel>() {
-	        public int compare(CurrenciesModel o1, CurrenciesModel o2) {
-	            return o1.getCurrency_date().compareTo(o2.getCurrency_date());
-	            }
-	    });
+//		List<CurrenciesModel> cur1 = modelRepo.findByCurrencyname("euro");
+//		
+//	    Collections.sort(cur1, new Comparator<CurrenciesModel>() {
+//	        public int compare(CurrenciesModel o1, CurrenciesModel o2) {
+//	            return o1.getCurrency_date().compareTo(o2.getCurrency_date());
+//	            }
+//	    });
 
-		chart = new Chart();
-		Component chartComp = chart.chartLine(cur1);
-		chartComp.setSizeFull();
-		HorizontalLayout chartLayout = new HorizontalLayout();
-
-		chartLayout.addComponentsAndExpand(chartComp);
-		chartLayout.setSizeFull();
-		root.addComponent(chartLayout);
+//		chart = new Chart();
+//		Component chartComp = chart.chartLine(cur1);
+//		chartComp.setSizeFull();
+//		HorizontalLayout chartLayout = new HorizontalLayout();
+//
+//		chartLayout.addComponentsAndExpand(chartComp);
+//		chartLayout.setSizeFull();
+//		root.addComponent(chartLayout);
 
 	}
 
@@ -128,6 +128,16 @@ public class AppUi extends UI {
 				dataToDraw.stream().forEach(d->{
 					Collections.sort(d, dataComparator);
 				});
+				
+				chart = new Chart();
+				Component chartComp = chart.chartLine(dataToDraw);
+				chartComp.setSizeFull();
+				HorizontalLayout chartLayout = new HorizontalLayout();
+
+				chartLayout.addComponentsAndExpand(chartComp);
+				chartLayout.setSizeFull();
+				root.addComponent(chartLayout);
+
 				
 				Notification.show(String.valueOf(selectedCurrencies.size())+ "  " + String.valueOf(downloadedCurrencies.size()));
 

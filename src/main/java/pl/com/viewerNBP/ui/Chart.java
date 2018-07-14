@@ -17,17 +17,17 @@ import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Component;
 
 public class Chart {
-	public Component chartLine(List<CurrenciesModel>... curData) {
+	public Component chartLine(List<List<CurrenciesModel>> objectsToDraw) {
 		LineDataset dataset1 = new LineDataset();
-	    List<List<CurrenciesModel>> objectsToDraw = new LinkedList();
+//	    List<List<CurrenciesModel>> objectsToDraw = new LinkedList();
 	    List<List<Double>> dataToDraw = new LinkedList();
 	    List<LineDataset> datasetToDraw = new LinkedList();
 		List<Double> myData1 = new ArrayList<>();
 		List<String> labels = new LinkedList();
 	    
-		 for(List<CurrenciesModel> c : curData){
-			   objectsToDraw.add(c);
-		 }
+//		 for(List<CurrenciesModel> c : curData){
+//			   objectsToDraw.add(c);
+//		 }
 		 
 		 objectsToDraw.get(0).stream().forEach(l->{
 				labels.add(l.getCurrency_date().toString().substring(0,10));
