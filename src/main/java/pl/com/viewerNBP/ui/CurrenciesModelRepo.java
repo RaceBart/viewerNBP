@@ -1,5 +1,6 @@
 package pl.com.viewerNBP.ui;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,5 +11,7 @@ public interface CurrenciesModelRepo extends JpaRepository<CurrenciesModel, Inte
 	
 
 	List<CurrenciesModel> findByCurrencyname(String currencyname);
+	
+	Date findFirstByOrderByCurrency_dateAsc();
 
 }
