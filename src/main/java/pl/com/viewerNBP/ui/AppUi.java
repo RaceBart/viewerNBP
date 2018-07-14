@@ -153,9 +153,9 @@ public class AppUi extends UI {
 					});
 					subList.add(tempList);
 				});
-
+				Notification.show(String.valueOf(subList.size()));
 				Chart chart = new Chart();
-				Component chartComp = chart.chartLine(subList);
+				Component chartComp = chart.chartLine(dataToDraw);
 				chartComp.setSizeFull();
 				root.addComponent(chartComp);		
 
