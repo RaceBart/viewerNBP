@@ -250,13 +250,13 @@ public class AppUi extends UI {
 			endDate.setEnabled(true);
 			clearBt.setEnabled(true);
 			drawBt.setEnabled(true);
-			sample.setEnabled(true);
+//			sample.setEnabled(true);
 		} else {
 			startDate.setEnabled(false);
 			endDate.setEnabled(false);
 			clearBt.setEnabled(false);
 			drawBt.setEnabled(false);
-			sample.setEnabled(false);
+//			sample.setEnabled(false);
 		}
 	}
 
