@@ -13,6 +13,8 @@ public interface CurrenciesModelRepo extends JpaRepository<CurrenciesModel, Inte
 	List<CurrenciesModel> findByCurrencyname(String currencyname);
 	
 	List<CurrenciesModel> findOneByCurrencyname(String currencyname);
+	
+	List<CurrenciesModel> findByCurrencydateBetween(Date start, Date end);
 
 
 }

@@ -180,7 +180,7 @@ public class AppUi extends UI {
 		});
 
 		predictBt.addClickListener(c -> {
-			modelRepo.deleteAll();
+//			modelRepo.deleteAll();
 			Notification.show(String.valueOf(checkDb()));
 		});
 
@@ -211,7 +211,7 @@ public class AppUi extends UI {
 	}
 	
 	private Boolean checkDb() {
-		List<CurrenciesModel> testVal = modelRepo.findOneByCurrencyname("euro");
+		List<CurrenciesModel> testVal = modelRepo.findByCurrencyname("euro");
 		if(testVal!=null) {
 			return true;
 		}else {

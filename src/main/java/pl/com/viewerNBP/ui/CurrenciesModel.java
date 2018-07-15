@@ -20,11 +20,11 @@ public class CurrenciesModel implements Serializable{
 	@Column(columnDefinition = "serial")
 	private Integer id_serial;
 	@Column(name="currency_date")
-	private Date currency_date;
+	private Date currencydate;
 	@Column(name="currency_name")
 	private String currencyname;
 	@Column(name="currency_value")
-	private Double currency_value;
+	private Double currencyvalue;
 	
 	public CurrenciesModel() {
 		
@@ -33,9 +33,9 @@ public class CurrenciesModel implements Serializable{
 	public CurrenciesModel(Date currency_date, String currency_name, Double currency_value) {
 		super();
 //		this.id_serial = id_serial;
-		this.currency_date = currency_date;
+		this.currencydate = currency_date;
 		this.currencyname = currency_name;
-		this.currency_value = currency_value;
+		this.currencyvalue = currency_value;
 	}
 	
 	
@@ -46,10 +46,10 @@ public class CurrenciesModel implements Serializable{
 		this.id_serial = id_serial;
 	}
 	public Date getCurrency_date() {
-		return currency_date;
+		return currencydate;
 	}
 	public void setCurrency_date(Date currency_date) {
-		this.currency_date = currency_date;
+		this.currencydate = currency_date;
 	}
 	public String getCurrency_name() {
 		return currencyname;
@@ -58,10 +58,10 @@ public class CurrenciesModel implements Serializable{
 		this.currencyname = currency_name;
 	}
 	public Double getCurrency_value() {
-		return currency_value;
+		return currencyvalue;
 	}
 	public void setCurrency_value(Double currency_value) {
-		this.currency_value = currency_value;
+		this.currencyvalue = currency_value;
 	}
 	
 }
