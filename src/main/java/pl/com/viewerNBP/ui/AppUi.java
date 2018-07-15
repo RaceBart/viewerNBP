@@ -1,6 +1,5 @@
 package pl.com.viewerNBP.ui;
 
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Collections;
@@ -40,9 +39,9 @@ public class AppUi extends UI {
 
 	@Autowired
 	CurrenciesModelRepo modelRepo;
-	
-    @PersistenceContext
-    private EntityManager em;
+
+	@PersistenceContext
+	private EntityManager em;
 
 	private VerticalLayout root;
 	private Button addBt = new Button("Add", VaadinIcons.PLUS);
@@ -54,7 +53,7 @@ public class AppUi extends UI {
 	private ListSelect<String> sample = new ListSelect<>();
 	private DateField startDate = new DateField("Choose start date");
 	private DateField endDate = new DateField("Choose start date");
-//	private List<String> selectedCurrencies = new LinkedList();
+	// private List<String> selectedCurrencies = new LinkedList();
 	private List<List<CurrenciesModel>> dataToDraw = new LinkedList<List<CurrenciesModel>>();
 	private Comparator<CurrenciesModel> dataComparator = new Comparator<CurrenciesModel>() {
 		public int compare(CurrenciesModel o1, CurrenciesModel o2) {
@@ -62,7 +61,7 @@ public class AppUi extends UI {
 		}
 	};
 
-//	private NbpApiSender nbpSender = new NbpApiSender();
+	// private NbpApiSender nbpSender = new NbpApiSender();
 	private LocalDate localDateMin;
 	private LocalDate localDateMax;
 	private LocalDate selectedLocalDateMin;
@@ -73,13 +72,13 @@ public class AppUi extends UI {
 	@Override
 	protected void init(VaadinRequest request) {
 		// *** sprawdzic czy dobre dane doszly
-//		currenciesList = nbpSender.getCurrenciesList();
+		// currenciesList = nbpSender.getCurrenciesList();
 		setButtonsActionsEnable(checkDb());
 		getDataRange();
-		
+
 		root = new VerticalLayout();
 		addButtonsLayout();
-		
+
 		setupButtonsBehaviour();
 		setupDatapicker();
 		setContent(root);
@@ -87,36 +86,36 @@ public class AppUi extends UI {
 	}
 
 	private void getDataRange() {
-		if(!currenciesList.isEmpty()) {
+		if (!currenciesList.isEmpty()) {
 			// *** niepobierac pierwszego
-		List<CurrenciesModel> repoAll = modelRepo.findByCurrencyname(currenciesList.get(0));
-		CurrenciesModel dbDateMax = Collections.max(repoAll, dataComparator);
-		localDateMax = dbDateMax.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		selectedLocalDateMax = localDateMax;
-		CurrenciesModel dbDateMin = Collections.min(repoAll, dataComparator);
-		localDateMin = dbDateMin.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		selectedLocalDateMin = localDateMin;
-		}		
+			List<CurrenciesModel> repoAll = modelRepo.findByCurrencyname(currenciesList.get(0));
+			CurrenciesModel dbDateMax = Collections.max(repoAll, dataComparator);
+			localDateMax = dbDateMax.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			selectedLocalDateMax = localDateMax;
+			CurrenciesModel dbDateMin = Collections.min(repoAll, dataComparator);
+			localDateMin = dbDateMin.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			selectedLocalDateMin = localDateMin;
+		}
 	}
 
 	private void addButtonsLayout() {
 		HorizontalLayout dataChooseLayout = new HorizontalLayout();
-		
-//		currencyChoose.setItems(nbpSender.getCurrenciesList());
-//		currencyChoose.setPlaceholder("Choose Currency");
-//		currencyChoose.setEmptySelectionAllowed(false);
-		if(!currenciesList.isEmpty()) {
-		sample.setItems(currenciesList);
+
+		// currencyChoose.setItems(nbpSender.getCurrenciesList());
+		// currencyChoose.setPlaceholder("Choose Currency");
+		// currencyChoose.setEmptySelectionAllowed(false);
+		if (!currenciesList.isEmpty()) {
+			sample.setItems(currenciesList);
 		}
 		sample.setRows(4);
 		startDate.setDateFormat("yyyy-MM-dd");
 		startDate.setValue(localDateMin);
 		endDate.setDateFormat("yyyy-MM-dd");
 		endDate.setValue(localDateMax);
-//		endDate.setValue(LocalDate.now());
+		// endDate.setValue(LocalDate.now());
 		drawBt.setStyleName(ValoTheme.BUTTON_FRIENDLY);
 		clearBt.setStyleName(ValoTheme.BUTTON_DANGER);
-		dataChooseLayout.addComponents(sample, drawBt,clearBt,startDate, endDate,databaseValueSettBt, predictBt);
+		dataChooseLayout.addComponents(sample, drawBt, clearBt, startDate, endDate, databaseValueSettBt, predictBt);
 		dataChooseLayout.setComponentAlignment(drawBt, Alignment.BOTTOM_LEFT);
 		dataChooseLayout.setComponentAlignment(clearBt, Alignment.BOTTOM_LEFT);
 		dataChooseLayout.setComponentAlignment(startDate, Alignment.BOTTOM_LEFT);
@@ -127,14 +126,14 @@ public class AppUi extends UI {
 	}
 
 	private void setupButtonsBehaviour() {
-//		LocalDate localDateTemp = null;
+		// LocalDate localDateTemp = null;
 
 		addBt.addClickListener(c -> {
-//			if (!selectedCurrencies.contains(currencyChoose.getValue())) {
-//				selectedCurrencies.add(currencyChoose.getValue());
-//			} else {
-//				Notification.show("Choose new currency");
-//			}
+			// if (!selectedCurrencies.contains(currencyChoose.getValue())) {
+			// selectedCurrencies.add(currencyChoose.getValue());
+			// } else {
+			// Notification.show("Choose new currency");
+			// }
 		});
 
 		clearBt.addClickListener(c -> {
@@ -144,7 +143,7 @@ public class AppUi extends UI {
 
 		drawBt.addClickListener(c -> {
 			List<List<CurrenciesModel>> subList = new LinkedList();
-			
+
 			if (!sample.isEmpty()) {
 				dataToDraw.clear();
 				sample.getValue().stream().forEach(s -> {
@@ -154,12 +153,14 @@ public class AppUi extends UI {
 				dataToDraw.stream().forEach(d -> {
 					Collections.sort(d, dataComparator);
 				});
-				
+
 				dataToDraw.stream().forEach(d -> {
 					List<CurrenciesModel> tempList = new LinkedList<>();
-					d.stream().forEach(cur->{
-						LocalDate localDateTemp = cur.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-						if((!localDateTemp.isBefore(startDate.getValue())&&(!localDateTemp.isAfter(endDate.getValue())))) {
+					d.stream().forEach(cur -> {
+						LocalDate localDateTemp = cur.getCurrency_date().toInstant().atZone(ZoneId.systemDefault())
+								.toLocalDate();
+						if ((!localDateTemp.isBefore(startDate.getValue())
+								&& (!localDateTemp.isAfter(endDate.getValue())))) {
 							tempList.add(cur);
 						}
 					});
@@ -169,7 +170,7 @@ public class AppUi extends UI {
 				Chart chart = new Chart();
 				Component chartComp = chart.chartLine(subList);
 				chartComp.setSizeFull();
-				root.addComponent(chartComp);		
+				root.addComponent(chartComp);
 
 			} else {
 				Notification.show("Choose some currency to show");
@@ -183,7 +184,7 @@ public class AppUi extends UI {
 			settingsWindow.center();
 			settingsWindow.setDraggable(true);
 			settingsWindow.setModal(true);
-			settingsWindow.addCloseListener(cl->{
+			settingsWindow.addCloseListener(cl -> {
 				setButtonsActionsEnable(checkDb());
 				refreshLayout();
 			});
@@ -191,67 +192,66 @@ public class AppUi extends UI {
 		});
 
 		predictBt.addClickListener(c -> {
-//			modelRepo.deleteAll();
-//			Notification.show(String.valueOf(checkDb()));
+			// modelRepo.deleteAll();
+			// Notification.show(String.valueOf(checkDb()));
 			Query q1 = em.createQuery("SELECT c FROM CurrenciesModel c");
 			Notification.show(endDate.getValue().getDayOfWeek().toString());
 		});
 
 	}
-	
+
 	private void refreshLayout() {
 		root.removeAllComponents();
-		addButtonsLayout();		
+		getDataRange();
+		addButtonsLayout();
 	}
 
 	private void setupDatapicker() {
-		startDate.addValueChangeListener(l->{
-			if(startDate.getValue().isBefore(localDateMin)) {
+		startDate.addValueChangeListener(l -> {
+			if (startDate.getValue().isBefore(localDateMin)) {
 				Notification.show("Date is out of range in database");
 				startDate.setValue(localDateMin);
-			}else {
+			} else {
 				selectedLocalDateMin = startDate.getValue();
 			}
-			
+
 		});
-		
-		endDate.addValueChangeListener(l->{
-			if(endDate.getValue().isAfter(localDateMax)) {
+
+		endDate.addValueChangeListener(l -> {
+			if (endDate.getValue().isAfter(localDateMax)) {
 				Notification.show("Date is out of range in database");
 				endDate.setValue(localDateMax);
-			}else {
+			} else {
 				selectedLocalDateMax = endDate.getValue();
 			}
-			
+
 		});
 
-
 	}
-	
+
 	private Boolean checkDb() {
 		List<CurrenciesModel> testVal = modelRepo.findByCurrencyname("euro");
-		if(!testVal.isEmpty()) {
+		if (!testVal.isEmpty()) {
 			Date sampleDate = testVal.get(0).getCurrency_date();
 			List<CurrenciesModel> curForDateList = modelRepo.findByCurrencydate(sampleDate);
-			curForDateList.stream().forEach(f->{
+			curForDateList.stream().forEach(f -> {
 				currenciesList.add(f.getCurrency_name());
 			});
 			return true;
-		}else {
+		} else {
 			return false;
 		}
-		
-		
+
 	}
 
 	private void setButtonsActionsEnable(Boolean state) {
-		if(state == true) {
+		if (state == true) {
 			startDate.setEnabled(true);
 			endDate.setEnabled(true);
 			clearBt.setEnabled(true);
 			drawBt.setEnabled(true);
 			sample.setEnabled(true);
-		}else{
+		} else {
 			startDate.setEnabled(false);
 			endDate.setEnabled(false);
 			clearBt.setEnabled(false);
@@ -259,6 +259,5 @@ public class AppUi extends UI {
 			sample.setEnabled(false);
 		}
 	}
-
 
 }
