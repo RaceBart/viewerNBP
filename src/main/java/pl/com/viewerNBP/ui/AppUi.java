@@ -69,7 +69,7 @@ public class AppUi extends UI {
 		// *** sprawdzic czy dobre dane doszly
 		currenciesList = nbpSender.getCurrenciesList();
 	
-		getDataRange();
+		//getDataRange();
 		
 		root = new VerticalLayout();
 		addButtonsLayout();
@@ -81,16 +81,16 @@ public class AppUi extends UI {
 	}
 
 	private void getDataRange() {
-		if(!currenciesList.isEmpty()) {
-			// *** niepobierac pierwszego
-		List<CurrenciesModel> repoAll = modelRepo.findByCurrencyname(currenciesList.get(0));
-		CurrenciesModel dbDateMax = Collections.max(repoAll, dataComparator);
-		localDateMax = dbDateMax.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		selectedLocalDateMax = localDateMax;
-		CurrenciesModel dbDateMin = Collections.min(repoAll, dataComparator);
-		localDateMin = dbDateMin.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		selectedLocalDateMin = localDateMin;
-		}		
+//		if(!currenciesList.isEmpty()) {
+//			// *** niepobierac pierwszego
+//		List<CurrenciesModel> repoAll = modelRepo.findByCurrencyname(currenciesList.get(0));
+//		CurrenciesModel dbDateMax = Collections.max(repoAll, dataComparator);
+//		localDateMax = dbDateMax.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//		selectedLocalDateMax = localDateMax;
+//		CurrenciesModel dbDateMin = Collections.min(repoAll, dataComparator);
+//		localDateMin = dbDateMin.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//		selectedLocalDateMin = localDateMin;
+//		}		
 	}
 
 	private void addButtonsLayout() {
@@ -151,10 +151,10 @@ public class AppUi extends UI {
 				dataToDraw.stream().forEach(d -> {
 					List<CurrenciesModel> tempList = new LinkedList<>();
 					d.stream().forEach(cur->{
-						LocalDate localDateTemp = cur.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-						if((!localDateTemp.isBefore(startDate.getValue())&&(!localDateTemp.isAfter(endDate.getValue())))) {
+//						LocalDate localDateTemp = cur.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//						if((!localDateTemp.isBefore(startDate.getValue())&&(!localDateTemp.isAfter(endDate.getValue())))) {
 							tempList.add(cur);
-						}
+//						}
 					});
 					subList.add(tempList);
 				});
@@ -211,7 +211,7 @@ public class AppUi extends UI {
 	}
 	
 	private Boolean checkDb() {
-		CurrenciesModel testVal = modelRepo.findOne(0);
+		List<CurrenciesModel> testVal = modelRepo.findByCurrencyname("euro");
 		if(testVal!=null) {
 			return true;
 		}else {

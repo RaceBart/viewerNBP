@@ -24,6 +24,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
+
 //@SpringComponent
 public class SettingsWindow extends Window {
 
@@ -34,8 +35,8 @@ public class SettingsWindow extends Window {
 	private DateField startDate = new DateField();
 	private DateField endDate = new DateField();
 	private Label info;
-	private Date minDate;
-	private Date maxDate;
+	private LocalDate minDate;
+	private LocalDate maxDate;
 	private Button getCurBt = new Button("Get New Currency Data");
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
@@ -93,7 +94,7 @@ public class SettingsWindow extends Window {
 
 	private void getDbDates() {
 		List<CurrenciesModel> formRepoList = modelRepo.findAll();
-		List<Date> datesList = new ArrayList<>();
+		List<LocalDate> datesList = new ArrayList<>();
 		formRepoList.stream().forEach(c->{
 			if(c.getCurrency_date()!=null) {
 			datesList.add(c.getCurrency_date());

@@ -1,6 +1,7 @@
 package pl.com.viewerNBP.ui;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -20,7 +21,7 @@ public class CurrenciesModel implements Serializable{
 	@Column(columnDefinition = "serial")
 	private Integer id_serial;
 	@Column(name="currency_date")
-	private Date currency_date;
+	private LocalDate currency_date;
 	@Column(name="currency_name")
 	private String currencyname;
 	@Column(name="currency_value")
@@ -30,7 +31,7 @@ public class CurrenciesModel implements Serializable{
 		
 	}
 	
-	public CurrenciesModel(Date currency_date, String currency_name, Double currency_value) {
+	public CurrenciesModel(LocalDate currency_date, String currency_name, Double currency_value) {
 		super();
 //		this.id_serial = id_serial;
 		this.currency_date = currency_date;
@@ -45,10 +46,10 @@ public class CurrenciesModel implements Serializable{
 	public void setId_serial(Integer id_serial) {
 		this.id_serial = id_serial;
 	}
-	public Date getCurrency_date() {
+	public LocalDate getCurrency_date() {
 		return currency_date;
 	}
-	public void setCurrency_date(Date currency_date) {
+	public void setCurrency_date(LocalDate currency_date) {
 		this.currency_date = currency_date;
 	}
 	public String getCurrency_name() {
