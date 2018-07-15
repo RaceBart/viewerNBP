@@ -61,7 +61,7 @@ public class SettingsWindow extends Window {
 			}else if(endDate.getValue().isAfter(LocalDate.now())) {
 				Notification.show("Only past data can be downloaded");
 			}else {
-				Notification.show("ok");
+				Notification.show("Data saved in database");
 				modelRepo.deleteAll();
 				List<CurrenciesModel> resultList = nbpSender.getAllFromNbp(startDate.getValue(), endDate.getValue());
 				modelRepo.save(resultList);
