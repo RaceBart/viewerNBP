@@ -66,6 +66,7 @@ public class AppUi extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
+		// *** sprawdzic czy dobre dane doszly
 		currenciesList = nbpSender.getCurrenciesList();
 	
 		getDataRange();
@@ -81,6 +82,7 @@ public class AppUi extends UI {
 
 	private void getDataRange() {
 		if(!currenciesList.isEmpty()) {
+			// *** niepobierac pierwszego
 		List<CurrenciesModel> repoAll = modelRepo.findByCurrencyname(currenciesList.get(0));
 		CurrenciesModel dbDateMax = Collections.max(repoAll, dataComparator);
 		localDateMax = dbDateMax.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -100,7 +102,9 @@ public class AppUi extends UI {
 		sample.setItems(nbpSender.getCurrenciesList());
 		sample.setRows(4);
 		startDate.setDateFormat("yyyy-MM-dd");
+		startDate.setValue(localDateMin);
 		endDate.setDateFormat("yyyy-MM-dd");
+		endDate.setValue(localDateMax);
 		endDate.setValue(LocalDate.now());
 		drawBt.setStyleName(ValoTheme.BUTTON_FRIENDLY);
 		clearBt.setStyleName(ValoTheme.BUTTON_DANGER);
@@ -143,6 +147,7 @@ public class AppUi extends UI {
 				dataToDraw.stream().forEach(d -> {
 					Collections.sort(d, dataComparator);
 				});
+				
 				dataToDraw.stream().forEach(d -> {
 					List<CurrenciesModel> tempList = new LinkedList<>();
 					d.stream().forEach(cur->{
@@ -175,6 +180,7 @@ public class AppUi extends UI {
 		});
 
 		predictBt.addClickListener(c -> {
+			Notification.show(String.valueOf(checkDb()));
 		});
 
 	}
@@ -201,6 +207,17 @@ public class AppUi extends UI {
 		});
 
 
+	}
+	
+	private Boolean checkDb() {
+		CurrenciesModel testVal = modelRepo.findOne(0);
+		if(testVal!=null) {
+			return true;
+		}else {
+			return false;
+		}
+		
+		
 	}
 
 
