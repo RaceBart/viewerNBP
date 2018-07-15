@@ -113,7 +113,7 @@ public class AppUi extends UI {
 		startDate.setValue(localDateMin);
 		endDate.setDateFormat("yyyy-MM-dd");
 		endDate.setValue(localDateMax);
-		endDate.setValue(LocalDate.now());
+//		endDate.setValue(LocalDate.now());
 		drawBt.setStyleName(ValoTheme.BUTTON_FRIENDLY);
 		clearBt.setStyleName(ValoTheme.BUTTON_DANGER);
 		dataChooseLayout.addComponents(sample, drawBt,clearBt,startDate, endDate,databaseValueSettBt, predictBt);
@@ -191,7 +191,8 @@ public class AppUi extends UI {
 		predictBt.addClickListener(c -> {
 //			modelRepo.deleteAll();
 //			Notification.show(String.valueOf(checkDb()));
-			Query q1 = em.createQuery("SELECT c FROM Currencies c");
+			Query q1 = em.createQuery("SELECT c FROM CurrenciesModel c");
+			Notification.show(endDate.getValue().getDayOfWeek().toString());
 		});
 
 	}
