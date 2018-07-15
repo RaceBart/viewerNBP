@@ -62,7 +62,7 @@ public class AppUi extends UI {
 		}
 	};
 
-	private NbpApiSender nbpSender = new NbpApiSender();
+//	private NbpApiSender nbpSender = new NbpApiSender();
 	private LocalDate localDateMin;
 	private LocalDate localDateMax;
 	private LocalDate selectedLocalDateMin;
@@ -73,7 +73,7 @@ public class AppUi extends UI {
 	@Override
 	protected void init(VaadinRequest request) {
 		// *** sprawdzic czy dobre dane doszly
-		currenciesList = nbpSender.getCurrenciesList();
+//		currenciesList = nbpSender.getCurrenciesList();
 		setButtonsActionsEnable(checkDb());
 		//getDataRange();
 		
@@ -87,25 +87,27 @@ public class AppUi extends UI {
 	}
 
 	private void getDataRange() {
-//		if(!currenciesList.isEmpty()) {
-//			// *** niepobierac pierwszego
-//		List<CurrenciesModel> repoAll = modelRepo.findByCurrencyname(currenciesList.get(0));
-//		CurrenciesModel dbDateMax = Collections.max(repoAll, dataComparator);
-//		localDateMax = dbDateMax.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//		selectedLocalDateMax = localDateMax;
-//		CurrenciesModel dbDateMin = Collections.min(repoAll, dataComparator);
-//		localDateMin = dbDateMin.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//		selectedLocalDateMin = localDateMin;
-//		}		
+		if(!currenciesList.isEmpty()) {
+			// *** niepobierac pierwszego
+		List<CurrenciesModel> repoAll = modelRepo.findByCurrencyname(currenciesList.get(0));
+		CurrenciesModel dbDateMax = Collections.max(repoAll, dataComparator);
+		localDateMax = dbDateMax.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		selectedLocalDateMax = localDateMax;
+		CurrenciesModel dbDateMin = Collections.min(repoAll, dataComparator);
+		localDateMin = dbDateMin.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		selectedLocalDateMin = localDateMin;
+		}		
 	}
 
 	private void addButtonsLayout() {
 		HorizontalLayout dataChooseLayout = new HorizontalLayout();
 		
-		currencyChoose.setItems(nbpSender.getCurrenciesList());
-		currencyChoose.setPlaceholder("Choose Currency");
-		currencyChoose.setEmptySelectionAllowed(false);
-		sample.setItems(nbpSender.getCurrenciesList());
+//		currencyChoose.setItems(nbpSender.getCurrenciesList());
+//		currencyChoose.setPlaceholder("Choose Currency");
+//		currencyChoose.setEmptySelectionAllowed(false);
+		if(!currenciesList.isEmpty()) {
+		sample.setItems(currenciesList);
+		}
 		sample.setRows(4);
 		startDate.setDateFormat("yyyy-MM-dd");
 		startDate.setValue(localDateMin);
@@ -221,6 +223,11 @@ public class AppUi extends UI {
 	private Boolean checkDb() {
 		List<CurrenciesModel> testVal = modelRepo.findByCurrencyname("euro");
 		if(!testVal.isEmpty()) {
+			Date sampleDate = testVal.get(0).getCurrency_date();
+			List<CurrenciesModel> curForDateList = modelRepo.findByCurrencydate(sampleDate);
+			curForDateList.stream().forEach(f->{
+				currenciesList.add(f.getCurrency_name());
+			});
 			return true;
 		}else {
 			return false;
