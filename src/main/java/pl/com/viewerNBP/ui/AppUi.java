@@ -75,7 +75,7 @@ public class AppUi extends UI {
 		// *** sprawdzic czy dobre dane doszly
 //		currenciesList = nbpSender.getCurrenciesList();
 		setButtonsActionsEnable(checkDb());
-		//getDataRange();
+		getDataRange();
 		
 		root = new VerticalLayout();
 		addButtonsLayout();
