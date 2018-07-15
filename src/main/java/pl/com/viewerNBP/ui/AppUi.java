@@ -180,7 +180,7 @@ public class AppUi extends UI {
 		});
 
 		predictBt.addClickListener(c -> {
-			modelRepo.deleteAll();
+			//modelRepo.deleteAll();
 			Notification.show(String.valueOf(checkDb()));
 		});
 
