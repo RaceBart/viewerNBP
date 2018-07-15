@@ -9,7 +9,6 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -90,7 +89,7 @@ public class NbpApiSender {
 		return currencyList;
 	}
 	
-	public List<CurrenciesModel> getAllFromNbp(LocalDate startDate, LocalDate endDate) {
+	public List<CurrenciesModel> getAllFromNbp(LocalDate startDate, LocalDate endDate){
 		
 //		if(endDate.isBefore(startDate) && )
 		
@@ -98,19 +97,17 @@ public class NbpApiSender {
 		
 		List<CurrenciesModel> result = new LinkedList();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
 		
 		JSONArray resultJsonArray = getJsonArrayCurrencies(startDate.toString(),endDate.toString());
 		for(int i=0; i<resultJsonArray.length(); i++) {
 			JSONArray ratesJsonArray = resultJsonArray.getJSONObject(i).getJSONArray("rates");
-			LocalDate day = null;
-//			try {
-//				day = sdf.parse(resultJsonArray.getJSONObject(i).getString("effectiveDate"));
-				day = LocalDate.parse(resultJsonArray.getJSONObject(i).getString("effectiveDate"), formatter);
-//			} catch (JSONException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+			Date day = null;
+			try {
+				day = sdf.parse(resultJsonArray.getJSONObject(i).getString("effectiveDate"));
+			} catch (JSONException | ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			for(int j=0; j<ratesJsonArray.length(); j++) {
 				
 				result.add(new CurrenciesModel(day, ratesJsonArray.getJSONObject(j).getString("currency"), ratesJsonArray.getJSONObject(j).getDouble("mid")));

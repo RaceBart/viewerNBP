@@ -151,10 +151,10 @@ public class AppUi extends UI {
 				dataToDraw.stream().forEach(d -> {
 					List<CurrenciesModel> tempList = new LinkedList<>();
 					d.stream().forEach(cur->{
-//						LocalDate localDateTemp = cur.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//						if((!localDateTemp.isBefore(startDate.getValue())&&(!localDateTemp.isAfter(endDate.getValue())))) {
+						LocalDate localDateTemp = cur.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						if((!localDateTemp.isBefore(startDate.getValue())&&(!localDateTemp.isAfter(endDate.getValue())))) {
 							tempList.add(cur);
-//						}
+						}
 					});
 					subList.add(tempList);
 				});
