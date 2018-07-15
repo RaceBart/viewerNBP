@@ -74,7 +74,7 @@ public class AppUi extends UI {
 	protected void init(VaadinRequest request) {
 		// *** sprawdzic czy dobre dane doszly
 		currenciesList = nbpSender.getCurrenciesList();
-		setButtonsActionsEnable(false);
+		setButtonsActionsEnable(checkDb());
 		//getDataRange();
 		
 		root = new VerticalLayout();
@@ -182,13 +182,14 @@ public class AppUi extends UI {
 			settingsWindow.center();
 			settingsWindow.setDraggable(true);
 			settingsWindow.setModal(true);
+			settingsWindow.addCloseListener(cl->setButtonsActionsEnable(checkDb()));
 			UI.getCurrent().addWindow(settingsWindow);
 		});
 
 		predictBt.addClickListener(c -> {
 //			modelRepo.deleteAll();
 //			Notification.show(String.valueOf(checkDb()));
-			Query q1 = em.createQuery("SELECT * FROM currencies");
+			Query q1 = em.createQuery("SELECT (*) FROM currencies");
 		});
 
 	}
