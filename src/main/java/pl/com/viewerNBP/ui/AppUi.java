@@ -212,7 +212,7 @@ public class AppUi extends UI {
 	
 	private Boolean checkDb() {
 		List<CurrenciesModel> testVal = modelRepo.findByCurrencyname("euro");
-		if(testVal!=null) {
+		if(!testVal.isEmpty()) {
 			return true;
 		}else {
 			return false;
