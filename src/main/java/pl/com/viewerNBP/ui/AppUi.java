@@ -138,8 +138,7 @@ public class AppUi extends UI {
 		});
 
 		clearBt.addClickListener(c -> {
-			root.removeAllComponents();
-			addButtonsLayout();
+			refreshLayout();
 
 		});
 
@@ -184,7 +183,10 @@ public class AppUi extends UI {
 			settingsWindow.center();
 			settingsWindow.setDraggable(true);
 			settingsWindow.setModal(true);
-			settingsWindow.addCloseListener(cl->setButtonsActionsEnable(checkDb()));
+			settingsWindow.addCloseListener(cl->{
+				setButtonsActionsEnable(checkDb());
+				refreshLayout();
+			});
 			UI.getCurrent().addWindow(settingsWindow);
 		});
 
@@ -197,6 +199,11 @@ public class AppUi extends UI {
 
 	}
 	
+	private void refreshLayout() {
+		root.removeAllComponents();
+		addButtonsLayout();		
+	}
+
 	private void setupDatapicker() {
 		startDate.addValueChangeListener(l->{
 			if(startDate.getValue().isBefore(localDateMin)) {
