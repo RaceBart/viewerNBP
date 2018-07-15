@@ -20,23 +20,22 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.vaadin.spring.annotation.SpringComponent;
-
-
+import com.vaadin.ui.Notification;
 
 //@Service
 public class NbpApiSender {
-//	public NbpApiSender(String baseURL) {
-//		super();
-//		this.baseURL = baseURL;
-//	}
-//	private String baseURL;
-	
+	// public NbpApiSender(String baseURL) {
+	// super();
+	// this.baseURL = baseURL;
+	// }
+	// private String baseURL;
+
 	public NbpApiSender() {
 		super();
 	}
-	
+
 	private static String baseURL = "http://api.nbp.pl/api/exchangerates/tables/a/";
-	
+
 	private String sendRequest(String reqAttr) {
 		String response = "";
 
@@ -45,15 +44,22 @@ public class NbpApiSender {
 			url = new URL(baseURL + reqAttr);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
-			
-			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			StringBuilder sb = new StringBuilder();
-			String line;
-			while ((line = br.readLine()) != null) {
-				sb.append(line + "\n");
+			int responseCode = con.getResponseCode();
+
+			if (responseCode == 200) {
+				BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				StringBuilder sb = new StringBuilder();
+				String line;
+				while ((line = br.readLine()) != null) {
+					sb.append(line + "\n");
+				}
+				br.close();
+				response = sb.toString();
+			}else if(responseCode == 400) {
+				Notification.show("Too long range od dates");
+			}else {
+				Notification.show("Wrong dates");
 			}
-			br.close();
-			response = sb.toString();
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,45 +67,42 @@ public class NbpApiSender {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return response;
 	}
-	
+
 	private String getCurrenciesFromNbp(String startDate, String endDate) {
 		return sendRequest("/" + startDate + "/" + endDate);
 	}
-	
+
 	public JSONArray getJsonArrayCurrencies(String startDate, String endDate) {
 
-		
 		return new JSONArray(getCurrenciesFromNbp(startDate, endDate));
-		
+
 	}
-	
-	public List<String> getCurrenciesList(){
-		
+
+	public List<String> getCurrenciesList() {
+
 		List<String> currencyList = new ArrayList<String>();
 
 		JSONArray responseJsonArray = new JSONArray(sendRequest(""));
 		JSONArray currencyNbpArray = responseJsonArray.getJSONObject(0).getJSONArray("rates");
 		for (int i = 0; i < currencyNbpArray.length(); i++) {
 			currencyList.add(currencyNbpArray.getJSONObject(i).getString("currency"));
-			}
-		
+		}
+
 		return currencyList;
 	}
-	
-	public List<CurrenciesModel> getAllFromNbp(LocalDate startDate, LocalDate endDate){
-		
-//		if(endDate.isBefore(startDate) && )
-		
-		
-		
+
+	public List<CurrenciesModel> getAllFromNbp(LocalDate startDate, LocalDate endDate) {
+
+		// if(endDate.isBefore(startDate) && )
+
 		List<CurrenciesModel> result = new LinkedList();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		JSONArray resultJsonArray = getJsonArrayCurrencies(startDate.toString(),endDate.toString());
-		for(int i=0; i<resultJsonArray.length(); i++) {
+
+		JSONArray resultJsonArray = getJsonArrayCurrencies(startDate.toString(), endDate.toString());
+		for (int i = 0; i < resultJsonArray.length(); i++) {
 			JSONArray ratesJsonArray = resultJsonArray.getJSONObject(i).getJSONArray("rates");
 			Date day = null;
 			try {
@@ -108,12 +111,13 @@ public class NbpApiSender {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			for(int j=0; j<ratesJsonArray.length(); j++) {
-				
-				result.add(new CurrenciesModel(day, ratesJsonArray.getJSONObject(j).getString("currency"), ratesJsonArray.getJSONObject(j).getDouble("mid")));
+			for (int j = 0; j < ratesJsonArray.length(); j++) {
+
+				result.add(new CurrenciesModel(day, ratesJsonArray.getJSONObject(j).getString("currency"),
+						ratesJsonArray.getJSONObject(j).getDouble("mid")));
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -124,7 +128,5 @@ public class NbpApiSender {
 	public static void setBaseURL(String baseURL) {
 		NbpApiSender.baseURL = baseURL;
 	}
-	
-	
-	
+
 }
