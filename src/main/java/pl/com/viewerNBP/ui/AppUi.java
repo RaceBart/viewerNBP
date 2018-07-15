@@ -234,6 +234,7 @@ public class AppUi extends UI {
 	private Boolean checkDb() {
 		List<CurrenciesModel> testVal = modelRepo.findByCurrencyname("euro");
 		if (!testVal.isEmpty()) {
+			currenciesList.clear();
 			Date sampleDate = testVal.get(0).getCurrency_date();
 			List<CurrenciesModel> curForDateList = modelRepo.findByCurrencydate(sampleDate);
 			curForDateList.stream().forEach(f -> {
