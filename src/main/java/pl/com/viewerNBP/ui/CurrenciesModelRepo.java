@@ -11,6 +11,8 @@ public interface CurrenciesModelRepo extends JpaRepository<CurrenciesModel, Inte
 	
 
 	List<CurrenciesModel> findByCurrencyname(String currencyname);
+	
+	CurrenciesModel findOneByCurrencyname(String currencyname);
 
 
 }
