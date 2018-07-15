@@ -105,6 +105,7 @@ public class AppUi extends UI {
 		// currencyChoose.setPlaceholder("Choose Currency");
 		// currencyChoose.setEmptySelectionAllowed(false);
 		if (!currenciesList.isEmpty()) {
+			sample.clear();
 			sample.setItems(currenciesList);
 		}
 		sample.setRows(4);
