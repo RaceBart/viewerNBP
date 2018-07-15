@@ -194,8 +194,8 @@ public class AppUi extends UI {
 		predictBt.addClickListener(c -> {
 			// modelRepo.deleteAll();
 			// Notification.show(String.valueOf(checkDb()));
-			Query q1 = em.createQuery("SELECT c FROM CurrenciesModel c");
-			Notification.show(endDate.getValue().getDayOfWeek().toString());
+//			Query q1 = em.createQuery("SELECT c FROM CurrenciesModel c");
+			Notification.show(sample.getValue().toString());
 		});
 
 	}
