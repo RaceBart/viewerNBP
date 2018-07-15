@@ -180,7 +180,7 @@ public class AppUi extends UI {
 		});
 
 		predictBt.addClickListener(c -> {
-			//modelRepo.deleteAll();
+			modelRepo.deleteAll();
 			Notification.show(String.valueOf(checkDb()));
 		});
 
@@ -221,6 +221,21 @@ public class AppUi extends UI {
 		
 	}
 
+	private void setButtonsActionsEnable(Boolean state) {
+		if(state == true) {
+			startDate.setEnabled(true);
+			endDate.setEnabled(true);
+			clearBt.setEnabled(true);
+			drawBt.setEnabled(true);
+			sample.setEnabled(true);
+		}else{
+			startDate.setEnabled(false);
+			endDate.setEnabled(false);
+			clearBt.setEnabled(false);
+			drawBt.setEnabled(false);
+			sample.setEnabled(false);
+		}
+	}
 
 
 }
