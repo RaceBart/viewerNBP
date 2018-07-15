@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -37,6 +40,9 @@ public class AppUi extends UI {
 
 	@Autowired
 	CurrenciesModelRepo modelRepo;
+	
+    @PersistenceContext
+    private EntityManager em;
 
 	private VerticalLayout root;
 	private Button addBt = new Button("Add", VaadinIcons.PLUS);
@@ -181,7 +187,8 @@ public class AppUi extends UI {
 
 		predictBt.addClickListener(c -> {
 //			modelRepo.deleteAll();
-			Notification.show(String.valueOf(checkDb()));
+//			Notification.show(String.valueOf(checkDb()));
+			Query q1 = em.createQuery("SELECT c FROM Country c");
 		});
 
 	}
