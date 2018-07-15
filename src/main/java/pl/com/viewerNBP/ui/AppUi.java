@@ -74,7 +74,7 @@ public class AppUi extends UI {
 	protected void init(VaadinRequest request) {
 		// *** sprawdzic czy dobre dane doszly
 		currenciesList = nbpSender.getCurrenciesList();
-	
+		setButtonsActionsEnable(false);
 		//getDataRange();
 		
 		root = new VerticalLayout();
