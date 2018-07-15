@@ -47,8 +47,8 @@ public class AppUi extends UI {
 	private Button addBt = new Button("Add", VaadinIcons.PLUS);
 	private Button clearBt = new Button("Clear", VaadinIcons.CLOSE);
 	private Button drawBt = new Button("Draw", VaadinIcons.PENCIL);
-	private Button databaseValueSettBt = new Button("DB Settings", VaadinIcons.COG_O);
-	private Button predictBt = new Button("Predict", VaadinIcons.CLOCK);
+	private Button databaseValueSettBt = new Button("Db downloader", VaadinIcons.COG_O);
+	private Button predictBt = new Button("Erase db", VaadinIcons.CLOCK);
 	private ComboBox<String> currencyChoose = new ComboBox<>();
 	private ListSelect<String> sample = new ListSelect<>();
 	private DateField startDate = new DateField("Choose start date");
@@ -193,10 +193,12 @@ public class AppUi extends UI {
 		});
 
 		predictBt.addClickListener(c -> {
-			// modelRepo.deleteAll();
 			// Notification.show(String.valueOf(checkDb()));
 //			Query q1 = em.createQuery("SELECT c FROM CurrenciesModel c");
-			Notification.show(sample.getValue().toString());
+//			Notification.show(sample.getValue().toString());
+			modelRepo.deleteAll();
+			setButtonsActionsEnable(checkDb());
+			refreshLayout();
 		});
 
 	}
@@ -254,12 +256,14 @@ public class AppUi extends UI {
 			clearBt.setEnabled(true);
 			drawBt.setEnabled(true);
 			sample.setEnabled(true);
+			predictBt.setEnabled(true);
 		} else {
 			startDate.setEnabled(false);
 			endDate.setEnabled(false);
 			clearBt.setEnabled(false);
 			drawBt.setEnabled(false);
 			sample.setEnabled(false);
+			predictBt.setEnabled(false);
 		}
 	}
 
