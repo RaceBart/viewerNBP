@@ -1,4 +1,4 @@
-#Nbp api test app
+# Nbp api test app
 
 Application is downloading historic values of currencies from NBP public api (http://api.nbp.pl/api/exchangerates).
 
