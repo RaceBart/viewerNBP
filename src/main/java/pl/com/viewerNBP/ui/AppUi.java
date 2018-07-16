@@ -118,13 +118,12 @@ public class AppUi extends UI {
 		drawBt.setStyleName(ValoTheme.BUTTON_FRIENDLY);
 		clearBt.setStyleName(ValoTheme.BUTTON_DANGER);
 		dataChooseLayout.addComponents(sample, drawBt, clearBt, startDate, endDate, databaseValueSettBt, predictBt);
-//		dataChooseLayout.setComponentAlignment(drawBt, Alignment.BOTTOM_LEFT);
-//		dataChooseLayout.setComponentAlignment(clearBt, Alignment.BOTTOM_LEFT);
-//		dataChooseLayout.setComponentAlignment(startDate, Alignment.BOTTOM_LEFT);
-//		dataChooseLayout.setComponentAlignment(endDate, Alignment.BOTTOM_LEFT);
-//		dataChooseLayout.setComponentAlignment(databaseValueSettBt, Alignment.BOTTOM_LEFT);
-//		dataChooseLayout.setComponentAlignment(predictBt, Alignment.BOTTOM_LEFT);
-		Responsive.makeResponsive(dataChooseLayout);
+		dataChooseLayout.setComponentAlignment(drawBt, Alignment.BOTTOM_LEFT);
+		dataChooseLayout.setComponentAlignment(clearBt, Alignment.BOTTOM_LEFT);
+		dataChooseLayout.setComponentAlignment(startDate, Alignment.BOTTOM_LEFT);
+		dataChooseLayout.setComponentAlignment(endDate, Alignment.BOTTOM_LEFT);
+		dataChooseLayout.setComponentAlignment(databaseValueSettBt, Alignment.BOTTOM_LEFT);
+		dataChooseLayout.setComponentAlignment(predictBt, Alignment.BOTTOM_LEFT);
 		root.addComponent(dataChooseLayout);
 	}
 
