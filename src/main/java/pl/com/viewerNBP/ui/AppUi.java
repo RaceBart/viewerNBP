@@ -275,7 +275,19 @@ public class AppUi extends UI {
 	private void addTrend(List<List<CurrenciesModel>> subDrawList) {
 		HorizontalLayout trendLayout = new HorizontalLayout();
 		subDrawList.stream().forEach(d->{
-			trendLayout.addComponent(new Button(d.get(0).getCurrency_name()));
+			double trend = d.get(d.size()-1).getCurrency_value()-d.get(d.size()-2).getCurrency_value();
+			Button trendBt = new Button(d.get(0).getCurrency_name());
+
+			if(trend >=0) {
+				trendBt.setStyleName(ValoTheme.BUTTON_FRIENDLY);
+				trendBt.setCaption(d.get(0).getCurrency_name()+" "+String.valueOf(trend));
+				trendLayout.addComponent(trendBt);
+			}else {
+				trendBt.setStyleName(ValoTheme.BUTTON_DANGER);
+				trendBt.setCaption(d.get(0).getCurrency_name()+" "+String.valueOf(trend));
+				trendLayout.addComponent(trendBt);
+			}
+			
 		});
 		root.addComponent(trendLayout);
 	}
