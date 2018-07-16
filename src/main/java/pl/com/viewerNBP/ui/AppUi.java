@@ -1,5 +1,6 @@
 package pl.com.viewerNBP.ui;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Collections;
@@ -15,12 +16,10 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.HorizontalLayout;
@@ -33,9 +32,6 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringUI
 public class AppUi extends UI {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1992537788056549902L;
 
 	@Autowired
@@ -45,16 +41,13 @@ public class AppUi extends UI {
 	private EntityManager em;
 
 	private VerticalLayout root;
-	private Button addBt = new Button("Add", VaadinIcons.PLUS);
 	private Button clearBt = new Button("Clear", VaadinIcons.CLOSE);
 	private Button drawBt = new Button("Draw", VaadinIcons.PENCIL);
 	private Button databaseValueSettBt = new Button("Db downloader", VaadinIcons.COG_O);
 	private Button predictBt = new Button("Erase db", VaadinIcons.CLOCK);
-	private ComboBox<String> currencyChoose = new ComboBox<>();
 	private ListSelect<String> sample = new ListSelect<>();
 	private DateField startDate = new DateField("Choose start date");
 	private DateField endDate = new DateField("Choose start date");
-	// private List<String> selectedCurrencies = new LinkedList();
 	private List<List<CurrenciesModel>> dataToDraw = new LinkedList<List<CurrenciesModel>>();
 	private Comparator<CurrenciesModel> dataComparator = new Comparator<CurrenciesModel>() {
 		public int compare(CurrenciesModel o1, CurrenciesModel o2) {
@@ -62,7 +55,7 @@ public class AppUi extends UI {
 		}
 	};
 
-	// private NbpApiSender nbpSender = new NbpApiSender();
+	private static DecimalFormat df2 = new DecimalFormat(".##");
 	private LocalDate localDateMin;
 	private LocalDate localDateMax;
 	private LocalDate selectedLocalDateMin;
@@ -72,14 +65,12 @@ public class AppUi extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
-		// *** sprawdzic czy dobre dane doszly
-		// currenciesList = nbpSender.getCurrenciesList();
+
 		setButtonsActionsEnable(checkDb());
 		getDataRange();
 
 		root = new VerticalLayout();
 		addButtonsLayout();
-
 		setupButtonsBehaviour();
 		setupDatapicker();
 		setContent(root);
@@ -88,7 +79,6 @@ public class AppUi extends UI {
 
 	private void getDataRange() {
 		if (!currenciesList.isEmpty()) {
-			// *** niepobierac pierwszego
 			List<CurrenciesModel> repoAll = modelRepo.findByCurrencyname(currenciesList.get(0));
 			CurrenciesModel dbDateMax = Collections.max(repoAll, dataComparator);
 			localDateMax = dbDateMax.getCurrency_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -102,9 +92,6 @@ public class AppUi extends UI {
 	private void addButtonsLayout() {
 		HorizontalLayout dataChooseLayout = new HorizontalLayout();
 
-		// currencyChoose.setItems(nbpSender.getCurrenciesList());
-		// currencyChoose.setPlaceholder("Choose Currency");
-		// currencyChoose.setEmptySelectionAllowed(false);
 		if (!currenciesList.isEmpty()) {
 			sample.clear();
 			sample.setItems(currenciesList);
@@ -114,7 +101,6 @@ public class AppUi extends UI {
 		startDate.setValue(localDateMin);
 		endDate.setDateFormat("yyyy-MM-dd");
 		endDate.setValue(localDateMax);
-		// endDate.setValue(LocalDate.now());
 		drawBt.setStyleName(ValoTheme.BUTTON_FRIENDLY);
 		clearBt.setStyleName(ValoTheme.BUTTON_DANGER);
 		dataChooseLayout.addComponents(sample, drawBt, clearBt, startDate, endDate, databaseValueSettBt, predictBt);
@@ -128,15 +114,6 @@ public class AppUi extends UI {
 	}
 
 	private void setupButtonsBehaviour() {
-		// LocalDate localDateTemp = null;
-
-		addBt.addClickListener(c -> {
-			// if (!selectedCurrencies.contains(currencyChoose.getValue())) {
-			// selectedCurrencies.add(currencyChoose.getValue());
-			// } else {
-			// Notification.show("Choose new currency");
-			// }
-		});
 
 		clearBt.addClickListener(c -> {
 			refreshLayout();
@@ -168,7 +145,6 @@ public class AppUi extends UI {
 					});
 					subList.add(tempList);
 				});
-//				Notification.show(String.valueOf(subList.get(0).size()));
 				Chart chart = new Chart();
 				Component chartComp = chart.chartLine(subList);
 				chartComp.setSizeFull();
@@ -276,15 +252,17 @@ public class AppUi extends UI {
 		HorizontalLayout trendLayout = new HorizontalLayout();
 		subDrawList.stream().forEach(d->{
 			double trend = d.get(d.size()-1).getCurrency_value()-d.get(d.size()-2).getCurrency_value();
-			Button trendBt = new Button(d.get(0).getCurrency_name());
+			String trendBtString = d.get(0).getCurrency_name() + " " + String.format("%.2f", trend);
+			Button trendBt;
 
 			if(trend >=0) {
+
+				trendBt = new Button(trendBtString,VaadinIcons.ARROW_CIRCLE_UP);
 				trendBt.setStyleName(ValoTheme.BUTTON_FRIENDLY);
-				trendBt.setCaption(d.get(0).getCurrency_name()+" "+String.valueOf(trend));
 				trendLayout.addComponent(trendBt);
 			}else {
+				trendBt = new Button(trendBtString,VaadinIcons.ARROW_CIRCLE_DOWN);
 				trendBt.setStyleName(ValoTheme.BUTTON_DANGER);
-				trendBt.setCaption(d.get(0).getCurrency_name()+" "+String.valueOf(trend));
 				trendLayout.addComponent(trendBt);
 			}
 			
