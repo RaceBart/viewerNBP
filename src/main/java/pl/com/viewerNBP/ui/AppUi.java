@@ -195,8 +195,11 @@ public class AppUi extends UI {
 
 		predictBt.addClickListener(c -> {
 			// Notification.show(String.valueOf(checkDb()));
-//			Query q1 = em.createQuery("SELECT c FROM CurrenciesModel c WHERE c.currencydate BETWEEN :"++startDate" AND :"endDate");
-			Notification.show(startDate.getValue().toString());
+			Query q1 = em.createQuery("SELECT c FROM CurrenciesModel c WHERE c.currencydate BETWEEN :"+startDate.getValue().toString()+" AND :"+endDate.getValue(), CurrenciesModel.class);
+//			Query q1 = em.createQuery("SELECT c FROM CurrenciesModel c WHERE c.currencyname = '"+sample.getValue()+"' AND c.currencydate BETWEEN :"+startDate.getValue().toString()+" AND :"+endDate.getValue());
+			List<CurrenciesModel> temp = q1.getResultList();
+			Notification.show(String.valueOf(temp.size()));
+			
 //			modelRepo.deleteAll();
 //			setButtonsActionsEnable(checkDb());
 //			refreshLayout();
