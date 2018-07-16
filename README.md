@@ -1,4 +1,4 @@
-# Nbp api test app
+## NBP api test app
 
 Application is downloading historic values of currencies from NBP public api (http://api.nbp.pl/api/exchangerates).
 
@@ -11,3 +11,4 @@ Application is downloading historic values of currencies from NBP public api (ht
   - To draw chart click button "Draw" and to clear layout click button "Clear"
   - Next chart is appearing under last one
 	
+# To Do next:
