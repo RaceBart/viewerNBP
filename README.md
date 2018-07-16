@@ -1,6 +1,7 @@
-## NBP api test app
+# NBP api test app
 
 Application is downloading historic values of currencies from NBP public api (http://api.nbp.pl/api/exchangerates).
+
 
   - When you start application with empty database only available option is button "Db downloader"
   - After clicking it will appear window for choosing date range of currencies to download (Note that NBP provide data only for past 93 days)
@@ -11,4 +12,9 @@ Application is downloading historic values of currencies from NBP public api (ht
   - To draw chart click button "Draw" and to clear layout click button "Clear"
   - Next chart is appearing under last one
 	
-# To Do next:
+## To Do next:
+
+  - Putting some resources occupying features in other threads
+  - Add more complex database repository methods, to speed up application working by pushing logic more on database site
+  - Add predictions for currencies based on on machine learning in WEKA api
+
