@@ -15,6 +15,7 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Alignment;
@@ -81,6 +82,7 @@ public class AppUi extends UI {
 
 		setupButtonsBehaviour();
 		setupDatapicker();
+		Responsive.makeResponsive(root);
 		setContent(root);
 
 	}
