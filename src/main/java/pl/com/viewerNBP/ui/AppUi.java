@@ -82,7 +82,6 @@ public class AppUi extends UI {
 
 		setupButtonsBehaviour();
 		setupDatapicker();
-		Responsive.makeResponsive(root);
 		setContent(root);
 
 	}
@@ -125,6 +124,7 @@ public class AppUi extends UI {
 		dataChooseLayout.setComponentAlignment(endDate, Alignment.BOTTOM_LEFT);
 		dataChooseLayout.setComponentAlignment(databaseValueSettBt, Alignment.BOTTOM_LEFT);
 		dataChooseLayout.setComponentAlignment(predictBt, Alignment.BOTTOM_LEFT);
+		Responsive.makeResponsive(dataChooseLayout);
 		root.addComponent(dataChooseLayout);
 	}
 
