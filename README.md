@@ -16,5 +16,5 @@ Application is downloading historic values of currencies from NBP public api (ht
 
   - Putting some resources occupying features in other threads
   - Add more complex database repository methods, to speed up application working by pushing logic more on database site
-  - Add predictions for currencies based on on machine learning in WEKA api
+  - Add predictions for currencies based on on machine learning algorithms
 

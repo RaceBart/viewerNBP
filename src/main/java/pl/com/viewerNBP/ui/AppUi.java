@@ -247,7 +247,8 @@ public class AppUi extends UI {
 	private void addTrend(List<List<CurrenciesModel>> subDrawList) {
 		HorizontalLayout trendLayout = new HorizontalLayout();
 		subDrawList.stream().forEach(d->{
-			double trend = d.get(d.size()-1).getCurrency_value()-d.get(d.size()-2).getCurrency_value();
+			double trend = 0;
+			trend = d.get(d.size()-1).getCurrency_value()-d.get(d.size()-2).getCurrency_value();
 			trend = Math.round(trend*10000.0)/10000.0;
 			String trendBtString = d.get(0).getCurrency_name() + " " + String.valueOf(trend);
 			Button trendBt;
