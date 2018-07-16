@@ -172,6 +172,7 @@ public class AppUi extends UI {
 				Chart chart = new Chart();
 				Component chartComp = chart.chartLine(subList);
 				chartComp.setSizeFull();
+				addTrend(subList);
 				root.addComponent(chartComp);
 
 			} else {
@@ -269,6 +270,14 @@ public class AppUi extends UI {
 			sample.setEnabled(false);
 			predictBt.setEnabled(false);
 		}
+	}
+	
+	private void addTrend(List<List<CurrenciesModel>> subDrawList) {
+		HorizontalLayout trendLayout = new HorizontalLayout();
+		subDrawList.stream().forEach(d->{
+			trendLayout.addComponent(new Button(d.get(0).getCurrency_name()));
+		});
+		root.addComponent(trendLayout);
 	}
 
 }
