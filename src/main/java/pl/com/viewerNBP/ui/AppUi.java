@@ -168,7 +168,7 @@ public class AppUi extends UI {
 					});
 					subList.add(tempList);
 				});
-				Notification.show(String.valueOf(subList.get(0).size()));
+//				Notification.show(String.valueOf(subList.get(0).size()));
 				Chart chart = new Chart();
 				Component chartComp = chart.chartLine(subList);
 				chartComp.setSizeFull();
@@ -195,11 +195,11 @@ public class AppUi extends UI {
 
 		predictBt.addClickListener(c -> {
 			// Notification.show(String.valueOf(checkDb()));
-//			Query q1 = em.createQuery("SELECT c FROM CurrenciesModel c");
-//			Notification.show(sample.getValue().toString());
-			modelRepo.deleteAll();
-			setButtonsActionsEnable(checkDb());
-			refreshLayout();
+//			Query q1 = em.createQuery("SELECT c FROM CurrenciesModel c WHERE c.currencydate BETWEEN :"++startDate" AND :"endDate");
+			Notification.show(startDate.getValue().toString());
+//			modelRepo.deleteAll();
+//			setButtonsActionsEnable(checkDb());
+//			refreshLayout();
 		});
 
 	}
