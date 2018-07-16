@@ -24,11 +24,7 @@ import com.vaadin.ui.Notification;
 
 //@Service
 public class NbpApiSender {
-	// public NbpApiSender(String baseURL) {
-	// super();
-	// this.baseURL = baseURL;
-	// }
-	// private String baseURL;
+
 
 	public NbpApiSender() {
 		super();
@@ -61,10 +57,8 @@ public class NbpApiSender {
 				Notification.show("Wrong dates");
 			}
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -108,7 +102,6 @@ public class NbpApiSender {
 			try {
 				day = sdf.parse(resultJsonArray.getJSONObject(i).getString("effectiveDate"));
 			} catch (JSONException | ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			for (int j = 0; j < ratesJsonArray.length(); j++) {

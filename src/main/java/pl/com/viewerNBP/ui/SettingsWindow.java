@@ -50,9 +50,7 @@ public class SettingsWindow extends Window {
 		endDate.setDateFormat("yyyy-MM-dd");
 		getDbDates();
 		
-		getCurBt.addClickListener(c->{
-//			List<CurrenciesModel> resultList = nbpSender.getAllFromNbp("2018-07-03", "2018-07-06");
-			
+		getCurBt.addClickListener(c->{	
 			
 			if((startDate.getValue()==null)||(endDate.getValue()==null)) {
 				Notification.show("Choose start and end date");
@@ -66,19 +64,7 @@ public class SettingsWindow extends Window {
 				List<CurrenciesModel> resultList = nbpSender.getAllFromNbp(startDate.getValue(), endDate.getValue());
 				modelRepo.save(resultList);
 			}
-				
-				
-				
-//				LocalDate settedStartDate = startDate.getValue();
-//				LocalDate settedEndDate = endDate.getValue();
-//				if(settedEndDate.isBefore(settedStartDate)) {
-//					Notification.show("End date cannot be before start date");
-//				}else {
-//					Notification.show(settedEndDate.toString());
-//				}
-//			}else {
-//				Notification.show("Choose start and end date");
-//			}
+
 		});
 
 		mainLayout = new VerticalLayout();
@@ -119,7 +105,6 @@ public class SettingsWindow extends Window {
 
 	public SettingsWindow(String caption, Component content) {
 		super(caption, content);
-		// TODO Auto-generated constructor stub
 	}
 
 }

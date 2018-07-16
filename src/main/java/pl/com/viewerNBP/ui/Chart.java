@@ -22,16 +22,12 @@ import com.vaadin.ui.Component;
 public class Chart {
 	public Component chartLine(List<List<CurrenciesModel>> objectsToDraw) {
 		LineDataset dataset1 = new LineDataset();
-//	    List<List<CurrenciesModel>> objectsToDraw = new LinkedList();
 		Map<String,LineDataset> mapDataset = new LinkedHashMap();
 	    List<List<Double>> dataToDraw = new LinkedList();
 	    List<LineDataset> datasetToDraw = new LinkedList();
 		List<Double> myData1 = new ArrayList<>();
 		List<String> labels = new LinkedList();
-	    
-//		 for(List<CurrenciesModel> c : curData){
-//			   objectsToDraw.add(c);
-//		 }
+
 		 
 		 objectsToDraw.get(0).stream().forEach(l->{
 				labels.add(l.getCurrency_date().toString().substring(0,10));
@@ -49,10 +45,6 @@ public class Chart {
 			 mapDataset.put(o.get(0).getCurrency_name(), tempDataset);
 		 });
 
-//
-//		cur1.stream().forEach(f->{
-//			myData1.add(f.getCurrency_value());
-//		});
 		
 		dataset1.dataAsList(myData1);
 		
@@ -63,14 +55,7 @@ public class Chart {
 			mapDataset.get(entry);
 			lineConfig.data().addDataset(mapDataset.get(entry).label(entry).fill(false).lineTension(0));
 		}
-		
-//		datasetToDraw.stream().forEach(d->{
-//			lineConfig.data().addDataset(d.label("").fill(false).lineTension(0));
-//		});
-		
-//		lineConfig.data().labelsAsList(labels)				
-//		lineConfig.addDataset(dataset1.label(cur1.get(0).getCurrency_name()).fill(false).lineTension(0))
-		
+
 		lineConfig.data()
 		.and().options().responsive(true)
 		

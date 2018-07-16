@@ -55,12 +55,10 @@ public class AppUi extends UI {
 		}
 	};
 
-	private static DecimalFormat df2 = new DecimalFormat(".##");
 	private LocalDate localDateMin;
 	private LocalDate localDateMax;
 	private LocalDate selectedLocalDateMin;
 	private LocalDate selectedLocalDateMax;
-
 	private List<String> currenciesList = new LinkedList();
 
 	@Override
@@ -171,15 +169,13 @@ public class AppUi extends UI {
 		});
 
 		predictBt.addClickListener(c -> {
-			// Notification.show(String.valueOf(checkDb()));
-			Query q1 = em.createQuery("SELECT c FROM CurrenciesModel c ",CurrenciesModel.class);
 //			Query q1 = em.createQuery("SELECT c FROM CurrenciesModel c WHERE c.currencyname = '"+sample.getValue()+"' AND c.currencydate BETWEEN :"+startDate.getValue().toString()+" AND :"+endDate.getValue());
 //			List<CurrenciesModel> temp = q1.getResultList();
-			Notification.show(q1.getSingleResult().toString());
-			
-//			modelRepo.deleteAll();
-//			setButtonsActionsEnable(checkDb());
-//			refreshLayout();
+//			Notification.show(q1.getSingleResult().toString());
+//			
+			modelRepo.deleteAll();
+			setButtonsActionsEnable(checkDb());
+			refreshLayout();
 		});
 
 	}
@@ -252,7 +248,8 @@ public class AppUi extends UI {
 		HorizontalLayout trendLayout = new HorizontalLayout();
 		subDrawList.stream().forEach(d->{
 			double trend = d.get(d.size()-1).getCurrency_value()-d.get(d.size()-2).getCurrency_value();
-			String trendBtString = d.get(0).getCurrency_name() + " " + String.format("%.2f", trend);
+			trend = Math.round(trend*100.0)/100.0;
+			String trendBtString = d.get(0).getCurrency_name() + " " + String.valueOf(trend);
 			Button trendBt;
 
 			if(trend >=0) {
